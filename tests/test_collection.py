@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from benchvista.collection import CollectionError, build, check_collection
+from benchvista.collection import ADD_LINK, OFFICIAL_REPOSITORY, CollectionError, build, check_collection, render_site
 
 EXAMPLES = Path(__file__).parents[1] / "examples"
 COLLECTION = {
@@ -142,6 +142,23 @@ def test_a_failing_test_stops_the_build(repo, tmp_path):
     with pytest.raises(CollectionError) as raised:
         build(repo, tmp_path / "site")
     assert raised.value.code == "COLLECTION_TEST_FAILED"
+
+
+def test_only_the_official_collection_links_versions_into_benchvista(repo, tmp_path):
+    index, out, _ = publish(repo, tmp_path, "first")
+
+    def site(page: str) -> dict:
+        return json.loads(page.split('id="site">')[1].split("</script>")[0])
+
+    # A community collection's site offers no link: BenchVista would not know its versions.
+    assert site((out / "index.html").read_text()) == {"add": None}
+    official = site(render_site({**index, "repository": OFFICIAL_REPOSITORY}))
+    assert official == {"add": ADD_LINK} and ADD_LINK == "https://benchvista.com/?page=library&add="
+    # The index BenchVista reads stays as it was: the link is the site's own.
+    assert "add" not in index and "add" not in json.loads((out / "collection.json").read_text())
+    text = json.loads((out / "index.html").read_text().split('id="text">')[1].split("</script>")[0])
+    for locale in ("en", "nb", "zh-Hans", "uk", "fr", "de", "es"):
+        assert {"collection.add", "collection.addVersion", "collection.addHelp"} <= set(text["messages"][locale])
 
 
 def test_collection_file_is_checked():

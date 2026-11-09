@@ -258,6 +258,20 @@
         padding: 0 6px;
         cursor: pointer;
       }
+      .add {
+        display: inline-block;
+        margin: 10px 0 0;
+        border: 1px solid var(--accent);
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .add:hover {
+        background: var(--accent-soft);
+      }
       .help {
         font-size: 12px;
         color: var(--muted);
@@ -323,10 +337,14 @@
     <script type="application/json" id="text">
       __TEXT__
     </script>
+    <script type="application/json" id="site">
+      __SITE__
+    </script>
     <script>
       (() => {
         const data = JSON.parse(document.getElementById('data').textContent);
         const text = JSON.parse(document.getElementById('text').textContent);
+        const site = JSON.parse(document.getElementById('site').textContent);
         const $ = (id) => document.getElementById(id);
         const el = (tag, props = {}, ...children) => {
           const node = document.createElement(tag);
@@ -388,6 +406,21 @@
           return button;
         }
         const versionLabel = (record) => t('collection.version', { version: record.version });
+        // Opens BenchVista's Library page with this version filled in; nothing is added from here.
+        function addLink(record, name) {
+          if (!site.add) return null;
+          return el(
+            'div',
+            {},
+            el('a', {
+              class: 'add',
+              href: site.add + record.sha256,
+              title: t('collection.addHelp'),
+              'aria-label': t('collection.addVersion', { name, version: record.version }),
+              textContent: t('collection.add'),
+            }),
+          );
+        }
 
         function pinsSection(pkg) {
           if (pkg.kind !== 'spark-plug') return null;
@@ -542,6 +575,7 @@
                     'details',
                     {},
                     el('summary', { textContent: versionLabel(record) }),
+                    addLink(record, own(record.package, 'name', record.package.name)),
                     versionBlock(record),
                   ),
                 ),
@@ -562,6 +596,7 @@
             el('h2', { textContent: own(pkg, 'name', pkg.name) }),
             el('p', { textContent: own(pkg, 'summary', pkg.summary) }),
             facts,
+            addLink(latest, own(pkg, 'name', pkg.name)),
             details,
           );
         }

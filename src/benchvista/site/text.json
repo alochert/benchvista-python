@@ -55,7 +55,10 @@
       "collection.footer.attestation": "Attestation",
       "collection.footer.repository": "Source on GitHub",
       "collection.footer.about": "A collection of Spark Plugs and Python analysis steps for BenchVista.",
-      "collection.footer.built": "Built by the BenchVista collection action from commit {commit}."
+      "collection.footer.built": "Built by the BenchVista collection action from commit {commit}.",
+      "collection.add": "Add to BenchVista",
+      "collection.addVersion": "Add to BenchVista: {name} {version}",
+      "collection.addHelp": "Opens BenchVista with this version filled in. Nothing is added until you choose Add there."
     },
     "zh-Hans": {
       "common.previewNote": "预览译文是尚未审核的草稿。",
@@ -102,7 +105,10 @@
       "collection.footer.attestation": "证明",
       "collection.footer.repository": "GitHub 上的源代码",
       "collection.footer.about": "用于 BenchVista 的 Spark Plugs 和 Python 分析步骤合集。",
-      "collection.footer.built": "由 BenchVista 合集操作根据提交 {commit} 构建。"
+      "collection.footer.built": "由 BenchVista 合集操作根据提交 {commit} 构建。",
+      "collection.add": "添加到 BenchVista",
+      "collection.addVersion": "添加到 BenchVista：{name} {version}",
+      "collection.addHelp": "打开 BenchVista 并填入此版本。在您于该处选择“添加”之前不会添加任何内容。"
     },
     "uk": {
       "common.previewNote": "Переклади в попередньому перегляді — неперевірені чернетки.",
@@ -149,7 +155,10 @@
       "collection.footer.attestation": "Атестація",
       "collection.footer.repository": "Код на GitHub",
       "collection.footer.about": "Колекція Spark Plugs і кроків аналізу на Python для BenchVista.",
-      "collection.footer.built": "Зібрано дією колекції BenchVista з коміту {commit}."
+      "collection.footer.built": "Зібрано дією колекції BenchVista з коміту {commit}.",
+      "collection.add": "Додати до BenchVista",
+      "collection.addVersion": "Додати до BenchVista: {name} {version}",
+      "collection.addHelp": "Відкриває BenchVista із заповненою цією версією. Нічого не додається, доки ви не виберете там «Додати»."
     },
     "fr": {
       "common.previewNote": "Les traductions en aperçu sont des brouillons non relus.",
@@ -196,7 +205,10 @@
       "collection.footer.attestation": "Attestation",
       "collection.footer.repository": "Source sur GitHub",
       "collection.footer.about": "Une collection de Spark Plugs et d’étapes d’analyse Python pour BenchVista.",
-      "collection.footer.built": "Construit par l’action de collection BenchVista à partir du commit {commit}."
+      "collection.footer.built": "Construit par l’action de collection BenchVista à partir du commit {commit}.",
+      "collection.add": "Ajouter à BenchVista",
+      "collection.addVersion": "Ajouter à BenchVista : {name} {version}",
+      "collection.addHelp": "Ouvre BenchVista avec cette version préremplie. Rien n’est ajouté tant que vous n’y choisissez pas Ajouter."
     },
     "de": {
       "common.previewNote": "Vorschauübersetzungen sind ungeprüfte Entwürfe.",
@@ -243,7 +255,10 @@
       "collection.footer.attestation": "Attestierung",
       "collection.footer.repository": "Quellcode auf GitHub",
       "collection.footer.about": "Eine Sammlung von Spark Plugs und Python-Analyseschritten für BenchVista.",
-      "collection.footer.built": "Gebaut von der BenchVista-Sammlungsaktion aus Commit {commit}."
+      "collection.footer.built": "Gebaut von der BenchVista-Sammlungsaktion aus Commit {commit}.",
+      "collection.add": "Zu BenchVista hinzufügen",
+      "collection.addVersion": "Zu BenchVista hinzufügen: {name} {version}",
+      "collection.addHelp": "Öffnet BenchVista mit dieser Version ausgefüllt. Es wird erst etwas hinzugefügt, wenn Sie dort „Hinzufügen“ wählen."
     },
     "es": {
       "common.previewNote": "Las traducciones de vista previa son borradores sin revisar.",
@@ -290,7 +305,10 @@
       "collection.footer.attestation": "Atestación",
       "collection.footer.repository": "Código en GitHub",
       "collection.footer.about": "Una colección de Spark Plugs y pasos de análisis en Python para BenchVista.",
-      "collection.footer.built": "Compilado por la acción de colecciones de BenchVista a partir del commit {commit}."
+      "collection.footer.built": "Compilado por la acción de colecciones de BenchVista a partir del commit {commit}.",
+      "collection.add": "Añadir a BenchVista",
+      "collection.addVersion": "Añadir a BenchVista: {name} {version}",
+      "collection.addHelp": "Abre BenchVista con esta versión rellenada. No se añade nada hasta que elija Añadir allí."
     },
     "nb": {
       "common.previewNote": "Forhåndsviste oversettelser er utkast som ikke er gjennomgått.",
@@ -337,7 +355,10 @@
       "collection.footer.attestation": "Attestasjon",
       "collection.footer.repository": "Kildekode på GitHub",
       "collection.footer.about": "En samling Spark Plugs og Python-analysetrinn for BenchVista.",
-      "collection.footer.built": "Bygget av BenchVista-samlingshandlingen fra commit {commit}."
+      "collection.footer.built": "Bygget av BenchVista-samlingshandlingen fra commit {commit}.",
+      "collection.add": "Legg til i BenchVista",
+      "collection.addVersion": "Legg til i BenchVista: {name} {version}",
+      "collection.addHelp": "Åpner BenchVista med denne versjonen fylt ut. Ingenting legges til før du velger Legg til der."
     }
   }
 }

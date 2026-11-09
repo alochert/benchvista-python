@@ -36,6 +36,10 @@ GROUPS = {"spark-plugs": "spark-plug", "analysis-steps": "analysis-step"}
 REPOSITORY = re.compile(r"^[A-Za-z0-9-]{1,39}/[A-Za-z0-9._-]{1,100}$")
 CONTROL = re.compile("[\\u0000-\\u001f\\u007f-\\u009f\\u2028\\u2029]")
 SHA256 = re.compile(r"^[a-f0-9]{64}$")
+# The official collection is the only one BenchVista reads without being asked, so only its site can
+# link a version into BenchVista's Library page. The link fills in a form there and adds nothing.
+OFFICIAL_REPOSITORY = "alochert/benchvista-collection"
+ADD_LINK = "https://benchvista.com/?page=library&add="
 
 
 class CollectionError(ValueError):
@@ -250,5 +254,6 @@ def render_site(index: dict) -> str:
         "__SUMMARY__": escape(index["summary"]),
         "__DATA__": _script_json(index),
         "__TEXT__": _script_json(site_text()),
+        "__SITE__": _script_json({"add": ADD_LINK if index["repository"] == OFFICIAL_REPOSITORY else None}),
     }
-    return re.sub("__(TITLE|SUMMARY|DATA|TEXT)__", lambda match: values[match.group(0)], template)
+    return re.sub("__(TITLE|SUMMARY|DATA|TEXT|SITE)__", lambda match: values[match.group(0)], template)
