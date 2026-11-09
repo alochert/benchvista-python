@@ -1,0 +1,79 @@
+# The BenchVista collection action (docs/library.md in the BenchVista repository, §8).
+# Checks, tests and hashes every Spark Plug and analysis step in a collection repository and
+# builds its site. With `release: true` it also publishes each new version as a GitHub Release
+# named <id>@<version> and attests the site's index and checksums. The calling job needs
+# `contents: write`, `id-token: write` and `attestations: write` for a release.
+name: BenchVista collection
+description: Check, test, hash and publish a collection of BenchVista Spark Plugs and analysis steps.
+branding:
+  icon: package
+  color: blue
+inputs:
+  release:
+    description: Publish new versions and attest the index ('true' on the default branch).
+    default: 'false'
+  out:
+    description: The folder the site is written to.
+    default: _site
+  github-token:
+    description: Token for reading and creating the repository's releases.
+    default: ${{ github.token }}
+outputs:
+  site:
+    description: The folder holding the built site.
+    value: ${{ inputs.out }}
+runs:
+  using: composite
+  steps:
+    - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+    - name: Install the benchvista command
+      shell: bash
+      run: uv tool install --python 3.13 "$GITHUB_ACTION_PATH"
+    - name: Fetch the published release records
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        mkdir -p "$RUNNER_TEMP/releases"
+        gh release list --repo "$GITHUB_REPOSITORY" --limit 1000 --json tagName --jq '.[].tagName' |
+          while read -r tag; do
+            gh release download "$tag" --repo "$GITHUB_REPOSITORY" --pattern release.json --dir "$RUNNER_TEMP/releases/$tag"
+          done
+    - name: Check, test and build the site
+      shell: bash
+      env:
+        OUT: ${{ inputs.out }}
+        RELEASE: ${{ inputs.release }}
+      run: |
+        attested=()
+        if [ "$RELEASE" = "true" ]; then attested=(--attested); fi
+        benchvista collection build . --out "$OUT" --releases "$RUNNER_TEMP/releases" \
+          --new-releases "$RUNNER_TEMP/new-releases" --commit "$GITHUB_SHA" "${attested[@]}"
+    - name: Publish new versions
+      if: inputs.release == 'true'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        shopt -s nullglob
+        for folder in "$RUNNER_TEMP"/new-releases/*/; do
+          tag=$(basename "$folder")
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$tag" \
+            --notes "Release record and checksums for $tag. The version hash is in release.json." \
+            "$folder/release.json" "$folder/checksums.txt"
+        done
+    - name: Attest the index and checksums
+      if: inputs.release == 'true'
+      id: attest
+      uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+      with:
+        subject-path: |
+          ${{ inputs.out }}/collection.json
+          ${{ inputs.out }}/checksums.txt
+    - name: Publish the attestation with the site
+      if: inputs.release == 'true'
+      shell: bash
+      env:
+        OUT: ${{ inputs.out }}
+        BUNDLE: ${{ steps.attest.outputs.bundle-path }}
+      run: cp "$BUNDLE" "$OUT/attestation.sigstore.json"

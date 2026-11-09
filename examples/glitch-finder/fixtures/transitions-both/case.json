@@ -1,0 +1,10 @@
+{
+  "params": {},
+  "inputs": {
+    "lines": "lines"
+  },
+  "expect": {
+    "glitches": "sha256:31e319bdf96174eb129be085a6571afa33e1f2a08b4ad37f455317f65d06a131"
+  },
+  "note": "4 glitches, the first: CH0@1000, CH2@1000, CH0@9000, CH0@9200"
+}

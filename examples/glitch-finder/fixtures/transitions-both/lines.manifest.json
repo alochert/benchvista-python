@@ -1,0 +1,65 @@
+{
+  "format": "benchvista-dataset-v1",
+  "id": "sha256:0ac939e6b0e8f78399cca83b41082edfc46d85edacfeb9a77ccdc01b391749aa",
+  "type": {
+    "kind": "series",
+    "axis": {
+      "kind": "points",
+      "clock": "clk:fixture",
+      "column": "t",
+      "interpolation": "hold"
+    },
+    "fields": [
+      {
+        "name": "CH0",
+        "type": "tri",
+        "nullable": false
+      },
+      {
+        "name": "CH1",
+        "type": "tri",
+        "nullable": false
+      },
+      {
+        "name": "CH2",
+        "type": "tri",
+        "nullable": true
+      }
+    ],
+    "coherence": "joint"
+  },
+  "extent": {
+    "kind": "points",
+    "start": "0",
+    "end": "15000"
+  },
+  "rows": 9,
+  "clocks": [
+    {
+      "id": "clk:fixture",
+      "basis": "simulated",
+      "secondsPerTick": [
+        "1",
+        "1000000000"
+      ]
+    }
+  ],
+  "quality": [],
+  "provenance": {
+    "origin": {
+      "kind": "simulated"
+    },
+    "producedBy": null,
+    "notes": []
+  },
+  "sealed": true,
+  "chunks": [
+    {
+      "sequence": 0,
+      "rows": 9,
+      "encoding": "columnar-le/v1",
+      "bytes": 108,
+      "sha256": "00ee05e0d791811747017563eb295a02699a6f499bb95f72ae204a2383d3bee6"
+    }
+  ]
+}

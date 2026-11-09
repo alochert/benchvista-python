@@ -1,0 +1,59 @@
+[
+  {
+    "inputs": {
+      "lines": {
+        "kind": "series",
+        "axis": {
+          "kind": "points",
+          "clock": "clk:fixture",
+          "column": "t",
+          "interpolation": "hold"
+        },
+        "fields": [
+          {
+            "name": "CH0",
+            "type": "tri",
+            "nullable": false
+          },
+          {
+            "name": "CH1",
+            "type": "tri",
+            "nullable": false
+          },
+          {
+            "name": "CH2",
+            "type": "tri",
+            "nullable": true
+          }
+        ],
+        "coherence": "joint"
+      }
+    },
+    "params": {},
+    "outputs": {
+      "glitches": {
+        "kind": "table",
+        "fields": [
+          {
+            "name": "start",
+            "type": "tick",
+            "nullable": false,
+            "clock": "clk:fixture"
+          },
+          {
+            "name": "width",
+            "type": "f64",
+            "nullable": false,
+            "quantity": "time",
+            "unit": "s"
+          },
+          {
+            "name": "field",
+            "type": "utf8",
+            "nullable": false
+          }
+        ]
+      }
+    }
+  }
+]

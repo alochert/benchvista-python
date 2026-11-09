@@ -1,0 +1,486 @@
+{
+  "versions": [
+    {
+      "item": "console-messages",
+      "kind": "spark-plug",
+      "id": "console-messages",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 413,
+          "sha256": "502b9fc7834132e7cf022ff432e9fbde74ddadc2e1dc139eac545f7bf34d418f"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 862,
+          "sha256": "f2a662ae2ac025eea5293e98262df4d4737fbcaf4faa8b4df1a3804bd60498a0"
+        },
+        {
+          "path": "main.py",
+          "bytes": 218,
+          "sha256": "e87815640aec751854f7de713e1c3731e51a598350cf65be3bbb932f3aeae496"
+        },
+        {
+          "path": "tests/defaults.json",
+          "bytes": 97,
+          "sha256": "b1870040997c4c7b18a492ffd8e77506e6dc4c4b55aa6c395adc6475b716819b"
+        },
+        {
+          "path": "tests/three-quick.json",
+          "bytes": 131,
+          "sha256": "ff7f47a00f600c8ed2ce441d52c11f6025b9b5d028595d94cd964b4033cdbe1c"
+        }
+      ],
+      "sha256": "411fe091a8ebe408dae52c378ceae7aa3038a8a516aced5911e09ff048f720ff"
+    },
+    {
+      "item": "gpio-loopback",
+      "kind": "spark-plug",
+      "id": "gpio-loopback",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 424,
+          "sha256": "8d9d1d240ea1269c808e127530b0939615bd982c48b3f35322e851d0c2da53f4"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 629,
+          "sha256": "62cd98c3eafbb522eac383632ef25dcc992db949394c9f4aaff455c426f7b203"
+        },
+        {
+          "path": "main.py",
+          "bytes": 660,
+          "sha256": "0954ccee146d64ae3663a70ff6015c874b1ae3cc2a42ba78eaf19b3083f5bba5"
+        },
+        {
+          "path": "tests/unwired.json",
+          "bytes": 66,
+          "sha256": "6684ff0bf7ccfc76a46d7377540576447714a7fe59b84b6729dda3665e0b2c79"
+        },
+        {
+          "path": "tests/wired.json",
+          "bytes": 92,
+          "sha256": "966ef496d9706ea1ca07d08b82ef6c4924b3556239f6ef0639c8e46b39af73de"
+        }
+      ],
+      "sha256": "48451444d6684a9983e897f4bf35f25b5a6d373e68c8de8f03687c33b444887a"
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "kind": "spark-plug",
+      "id": "pwm-adc-sweep",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 770,
+          "sha256": "65801e1fdacc34c1197ece03f0cda46da2d3dd634e47fe2e7df5238a259aac61"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 1095,
+          "sha256": "2771725d918ca2f8189b674d30c10dc8171be18920babbc167fda4af81b4bc8e"
+        },
+        {
+          "path": "main.py",
+          "bytes": 1007,
+          "sha256": "dc2ca69fbde4a4b73965843229ba21f7c9f131ddddb706064b9cd485407644ef"
+        },
+        {
+          "path": "tests/ideal-filter.json",
+          "bytes": 162,
+          "sha256": "be68dc9b51a814302d6c6daf0f122c0e21315b046461771c9862c3d15112d5dd"
+        }
+      ],
+      "sha256": "06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147"
+    },
+    {
+      "item": "glitch-finder",
+      "kind": "analysis-step",
+      "id": "glitch-finder",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "benchvista.json",
+          "bytes": 252,
+          "sha256": "4a27f89aaa7a56228684541be3986fbdbeaf4da4313092e19da32f548adcc74a"
+        },
+        {
+          "path": "fixtures/transitions-both/case.json",
+          "bytes": 243,
+          "sha256": "7a5808cfa39dbe3e2327cfbf7b803a2e5869950f0c776cf1edd1f849c183a182"
+        },
+        {
+          "path": "fixtures/transitions-both/lines.0.bin",
+          "bytes": 108,
+          "sha256": "00ee05e0d791811747017563eb295a02699a6f499bb95f72ae204a2383d3bee6"
+        },
+        {
+          "path": "fixtures/transitions-both/lines.manifest.json",
+          "bytes": 1201,
+          "sha256": "222da432e517a032d31748b1d7f76ab56800d6e1748db01d147397ad123dbdee"
+        },
+        {
+          "path": "fixtures/transitions-falling/case.json",
+          "bytes": 274,
+          "sha256": "78c1f6dacc67eb61c1ffdc1d2308bc1bded666b51b9002fe134b65fa643d144d"
+        },
+        {
+          "path": "fixtures/transitions-falling/lines.0.bin",
+          "bytes": 108,
+          "sha256": "00ee05e0d791811747017563eb295a02699a6f499bb95f72ae204a2383d3bee6"
+        },
+        {
+          "path": "fixtures/transitions-falling/lines.manifest.json",
+          "bytes": 1201,
+          "sha256": "222da432e517a032d31748b1d7f76ab56800d6e1748db01d147397ad123dbdee"
+        },
+        {
+          "path": "fixtures/transitions-rising/case.json",
+          "bytes": 321,
+          "sha256": "c10f239a79c68ed7930f8afcbec51b9f5caf16855fa8093cecd9cfc0c12ecbdc"
+        },
+        {
+          "path": "fixtures/transitions-rising/lines.0.bin",
+          "bytes": 108,
+          "sha256": "00ee05e0d791811747017563eb295a02699a6f499bb95f72ae204a2383d3bee6"
+        },
+        {
+          "path": "fixtures/transitions-rising/lines.manifest.json",
+          "bytes": 1201,
+          "sha256": "222da432e517a032d31748b1d7f76ab56800d6e1748db01d147397ad123dbdee"
+        },
+        {
+          "path": "fixtures/uniform/case.json",
+          "bytes": 282,
+          "sha256": "c2f2023e4ef69b0babce041f3647e3bfaef1d23b39e7e5f80ac3c0cd1b30963b"
+        },
+        {
+          "path": "fixtures/uniform/lines.0.bin",
+          "bytes": 200,
+          "sha256": "e2affe6a93911610fbf9dfd332b33dbafa02263a26603894591d8149f9818988"
+        },
+        {
+          "path": "fixtures/uniform/lines.manifest.json",
+          "bytes": 997,
+          "sha256": "21fa21df78cc34748388d855e798ad5c572b2d18ce52c2fecd0e342957e5f256"
+        },
+        {
+          "path": "fixtures/unknown-field/case.json",
+          "bytes": 122,
+          "sha256": "3f54be79e284d5d514365395a95c33d2f999dc342e8b884bf435ecd9d9b0f079"
+        },
+        {
+          "path": "fixtures/unknown-field/lines.0.bin",
+          "bytes": 108,
+          "sha256": "00ee05e0d791811747017563eb295a02699a6f499bb95f72ae204a2383d3bee6"
+        },
+        {
+          "path": "fixtures/unknown-field/lines.manifest.json",
+          "bytes": 1201,
+          "sha256": "222da432e517a032d31748b1d7f76ab56800d6e1748db01d147397ad123dbdee"
+        },
+        {
+          "path": "step.json",
+          "bytes": 3994,
+          "sha256": "58647e0e228411c8a317b3258a7bd4a9295674bc48191f1bd7cc749938a90ebd"
+        },
+        {
+          "path": "step.py",
+          "bytes": 3926,
+          "sha256": "1e7996442962abde3514aff7dede1383d1ea4f8cfe8c9e8667c7703463a6ac3b"
+        },
+        {
+          "path": "step.sha256",
+          "bytes": 65,
+          "sha256": "76cf9e87a0d10b9f7593e9925054eb924ebeccb891bc7a2665b5bc0160d0c3a8"
+        }
+      ],
+      "sha256": "a4f2e2e5bca306c7f2dd95771cbaa83211fc4843c6fd7e5d78645ccd88ccea76"
+    }
+  ],
+  "installs": [
+    {
+      "item": "gpio-loopback",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {
+        "OUT": "J1.4",
+        "IN": "J1.5"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "gpio-loopback",
+        "name": "Digital loopback test",
+        "description": "Writes low and high through a 1 kohm resistor and checks that the input reads the same level.",
+        "source": "# Written by BenchVista: gpio-loopback 1.0.0, sha256 48451444d6684a9983e897f4bf35f25b5a6d373e68c8de8f03687c33b444887a\nPINS = {\"OUT\": \"J1.4\", \"IN\": \"J1.5\"}\nSETTINGS = {}\n\n# Digital loopback test, a Spark Plug. CC0-1.0.\n# OUT -> 1 kohm resistor -> IN on the SAME 3.3 V board.\n# Disconnect external circuits. This is a logic check, not a timing measurement.\ndef main(spark):\n    failures = 0\n    for delay in (5, 10, 25, 50, 100):\n        for level in (0, 1, 0, 1):\n            spark.write(PINS[\"OUT\"], level)\n            yield spark.sleep_ms(delay)\n            observed = spark.read(PINS[\"IN\"])\n            if observed != level:\n                failures += 1\n            print(\"delay_ms\", delay, \"sent\", level, \"read\", observed)\n    spark.write(PINS[\"OUT\"], 0)\n    print(\"PASS\" if failures == 0 else \"FAIL\", \"mismatches\", failures)\n",
+        "pins": [
+          {
+            "pad": "J1.4",
+            "direction": "output"
+          },
+          {
+            "pad": "J1.5",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 10000
+      }
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {
+        "OUT": "J1.4",
+        "IN": "J1.5"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "pwm-adc-sweep",
+        "name": "Filtered PWM and ADC sweep",
+        "description": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+        "source": "# Written by BenchVista: pwm-adc-sweep 1.0.0, sha256 06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147\nPINS = {\"OUT\": \"J1.4\", \"IN\": \"J1.5\"}\nSETTINGS = {\"samples\": 8, \"settle\": 250}\n\n# Filtered PWM and ADC sweep, a Spark Plug. CC0-1.0. Needs the Spark PWM/ADC task API.\n# SAME 3.3 V board: OUT -> 10 kohm -> IN; IN -> 1 uF -> GND.\n# Use a ceramic capacitor. Disconnect external circuits. Never connect 5 V.\n# The RC filter averages PWM; without it ADC readings depend on pulse phase.\n# 10..60% duty nominally means about 0.33..1.98 V on a 3.3 V supply.\n# Prints raw scaled ADC counts, NOT calibrated volts or 16-bit accuracy.\ndef main(spark):\n    settle = round(SETTINGS[\"settle\"])\n    samples = SETTINGS[\"samples\"]\n    print(\"duty_percent,adc_raw_mean\")\n    for percent in (10, 20, 30, 40, 50, 60, 50, 40, 30, 20, 10):\n        spark.pwm(PINS[\"OUT\"], 1000, round(percent * 65535 / 100))\n        yield spark.sleep_ms(settle)\n        total = 0\n        for sample in range(samples):\n            total += spark.adc_read_u16(PINS[\"IN\"])\n            yield spark.sleep_ms(5)\n        print(percent, round(total / samples), sep=\",\")\n    spark.pwm(PINS[\"OUT\"], 1000, 0)\n    yield spark.sleep_ms(100)\n",
+        "pins": [
+          {
+            "pad": "J1.4",
+            "direction": "output"
+          },
+          {
+            "pad": "J1.5",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 15000
+      }
+    },
+    {
+      "item": "gpio-loopback",
+      "board": "tenstar.rp2350-zero",
+      "pins": {
+        "OUT": "R1",
+        "IN": "L7"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "gpio-loopback",
+        "name": "Digital loopback test",
+        "description": "Writes low and high through a 1 kohm resistor and checks that the input reads the same level.",
+        "source": "# Written by BenchVista: gpio-loopback 1.0.0, sha256 48451444d6684a9983e897f4bf35f25b5a6d373e68c8de8f03687c33b444887a\nPINS = {\"OUT\": \"R1\", \"IN\": \"L7\"}\nSETTINGS = {}\n\n# Digital loopback test, a Spark Plug. CC0-1.0.\n# OUT -> 1 kohm resistor -> IN on the SAME 3.3 V board.\n# Disconnect external circuits. This is a logic check, not a timing measurement.\ndef main(spark):\n    failures = 0\n    for delay in (5, 10, 25, 50, 100):\n        for level in (0, 1, 0, 1):\n            spark.write(PINS[\"OUT\"], level)\n            yield spark.sleep_ms(delay)\n            observed = spark.read(PINS[\"IN\"])\n            if observed != level:\n                failures += 1\n            print(\"delay_ms\", delay, \"sent\", level, \"read\", observed)\n    spark.write(PINS[\"OUT\"], 0)\n    print(\"PASS\" if failures == 0 else \"FAIL\", \"mismatches\", failures)\n",
+        "pins": [
+          {
+            "pad": "R1",
+            "direction": "output"
+          },
+          {
+            "pad": "L7",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 10000
+      }
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "board": "tenstar.rp2350-zero",
+      "pins": {
+        "OUT": "R1",
+        "IN": "L7"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "pwm-adc-sweep",
+        "name": "Filtered PWM and ADC sweep",
+        "description": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+        "source": "# Written by BenchVista: pwm-adc-sweep 1.0.0, sha256 06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147\nPINS = {\"OUT\": \"R1\", \"IN\": \"L7\"}\nSETTINGS = {\"samples\": 8, \"settle\": 250}\n\n# Filtered PWM and ADC sweep, a Spark Plug. CC0-1.0. Needs the Spark PWM/ADC task API.\n# SAME 3.3 V board: OUT -> 10 kohm -> IN; IN -> 1 uF -> GND.\n# Use a ceramic capacitor. Disconnect external circuits. Never connect 5 V.\n# The RC filter averages PWM; without it ADC readings depend on pulse phase.\n# 10..60% duty nominally means about 0.33..1.98 V on a 3.3 V supply.\n# Prints raw scaled ADC counts, NOT calibrated volts or 16-bit accuracy.\ndef main(spark):\n    settle = round(SETTINGS[\"settle\"])\n    samples = SETTINGS[\"samples\"]\n    print(\"duty_percent,adc_raw_mean\")\n    for percent in (10, 20, 30, 40, 50, 60, 50, 40, 30, 20, 10):\n        spark.pwm(PINS[\"OUT\"], 1000, round(percent * 65535 / 100))\n        yield spark.sleep_ms(settle)\n        total = 0\n        for sample in range(samples):\n            total += spark.adc_read_u16(PINS[\"IN\"])\n            yield spark.sleep_ms(5)\n        print(percent, round(total / samples), sep=\",\")\n    spark.pwm(PINS[\"OUT\"], 1000, 0)\n    yield spark.sleep_ms(100)\n",
+        "pins": [
+          {
+            "pad": "R1",
+            "direction": "output"
+          },
+          {
+            "pad": "L7",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 15000
+      }
+    },
+    {
+      "item": "gpio-loopback",
+      "board": "espressif.esp32-devkitc-v4-38",
+      "pins": {
+        "OUT": "J2.9",
+        "IN": "J2.8"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "gpio-loopback",
+        "name": "Digital loopback test",
+        "description": "Writes low and high through a 1 kohm resistor and checks that the input reads the same level.",
+        "source": "# Written by BenchVista: gpio-loopback 1.0.0, sha256 48451444d6684a9983e897f4bf35f25b5a6d373e68c8de8f03687c33b444887a\nPINS = {\"OUT\": \"J2.9\", \"IN\": \"J2.8\"}\nSETTINGS = {}\n\n# Digital loopback test, a Spark Plug. CC0-1.0.\n# OUT -> 1 kohm resistor -> IN on the SAME 3.3 V board.\n# Disconnect external circuits. This is a logic check, not a timing measurement.\ndef main(spark):\n    failures = 0\n    for delay in (5, 10, 25, 50, 100):\n        for level in (0, 1, 0, 1):\n            spark.write(PINS[\"OUT\"], level)\n            yield spark.sleep_ms(delay)\n            observed = spark.read(PINS[\"IN\"])\n            if observed != level:\n                failures += 1\n            print(\"delay_ms\", delay, \"sent\", level, \"read\", observed)\n    spark.write(PINS[\"OUT\"], 0)\n    print(\"PASS\" if failures == 0 else \"FAIL\", \"mismatches\", failures)\n",
+        "pins": [
+          {
+            "pad": "J2.9",
+            "direction": "output"
+          },
+          {
+            "pad": "J2.8",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 10000
+      }
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "board": "espressif.esp32-devkitc-v4-38",
+      "pins": {
+        "OUT": "J2.9",
+        "IN": "J2.8"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "pwm-adc-sweep",
+        "name": "Filtered PWM and ADC sweep",
+        "description": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+        "source": "# Written by BenchVista: pwm-adc-sweep 1.0.0, sha256 06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147\nPINS = {\"OUT\": \"J2.9\", \"IN\": \"J2.8\"}\nSETTINGS = {\"samples\": 8, \"settle\": 250}\n\n# Filtered PWM and ADC sweep, a Spark Plug. CC0-1.0. Needs the Spark PWM/ADC task API.\n# SAME 3.3 V board: OUT -> 10 kohm -> IN; IN -> 1 uF -> GND.\n# Use a ceramic capacitor. Disconnect external circuits. Never connect 5 V.\n# The RC filter averages PWM; without it ADC readings depend on pulse phase.\n# 10..60% duty nominally means about 0.33..1.98 V on a 3.3 V supply.\n# Prints raw scaled ADC counts, NOT calibrated volts or 16-bit accuracy.\ndef main(spark):\n    settle = round(SETTINGS[\"settle\"])\n    samples = SETTINGS[\"samples\"]\n    print(\"duty_percent,adc_raw_mean\")\n    for percent in (10, 20, 30, 40, 50, 60, 50, 40, 30, 20, 10):\n        spark.pwm(PINS[\"OUT\"], 1000, round(percent * 65535 / 100))\n        yield spark.sleep_ms(settle)\n        total = 0\n        for sample in range(samples):\n            total += spark.adc_read_u16(PINS[\"IN\"])\n            yield spark.sleep_ms(5)\n        print(percent, round(total / samples), sep=\",\")\n    spark.pwm(PINS[\"OUT\"], 1000, 0)\n    yield spark.sleep_ms(100)\n",
+        "pins": [
+          {
+            "pad": "J2.9",
+            "direction": "output"
+          },
+          {
+            "pad": "J2.8",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 15000
+      }
+    },
+    {
+      "item": "gpio-loopback",
+      "board": "st.nucleo-h533re",
+      "pins": {
+        "OUT": "CN8.1",
+        "IN": "CN8.3"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "gpio-loopback",
+        "name": "Digital loopback test",
+        "description": "Writes low and high through a 1 kohm resistor and checks that the input reads the same level.",
+        "source": "# Written by BenchVista: gpio-loopback 1.0.0, sha256 48451444d6684a9983e897f4bf35f25b5a6d373e68c8de8f03687c33b444887a\nPINS = {\"OUT\": \"CN8.1\", \"IN\": \"CN8.3\"}\nSETTINGS = {}\n\n# Digital loopback test, a Spark Plug. CC0-1.0.\n# OUT -> 1 kohm resistor -> IN on the SAME 3.3 V board.\n# Disconnect external circuits. This is a logic check, not a timing measurement.\ndef main(spark):\n    failures = 0\n    for delay in (5, 10, 25, 50, 100):\n        for level in (0, 1, 0, 1):\n            spark.write(PINS[\"OUT\"], level)\n            yield spark.sleep_ms(delay)\n            observed = spark.read(PINS[\"IN\"])\n            if observed != level:\n                failures += 1\n            print(\"delay_ms\", delay, \"sent\", level, \"read\", observed)\n    spark.write(PINS[\"OUT\"], 0)\n    print(\"PASS\" if failures == 0 else \"FAIL\", \"mismatches\", failures)\n",
+        "pins": [
+          {
+            "pad": "CN8.1",
+            "direction": "output"
+          },
+          {
+            "pad": "CN8.3",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 10000
+      }
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "board": "st.nucleo-h533re",
+      "pins": {
+        "OUT": "CN8.1",
+        "IN": "CN8.3"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "pwm-adc-sweep",
+        "name": "Filtered PWM and ADC sweep",
+        "description": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+        "source": "# Written by BenchVista: pwm-adc-sweep 1.0.0, sha256 06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147\nPINS = {\"OUT\": \"CN8.1\", \"IN\": \"CN8.3\"}\nSETTINGS = {\"samples\": 8, \"settle\": 250}\n\n# Filtered PWM and ADC sweep, a Spark Plug. CC0-1.0. Needs the Spark PWM/ADC task API.\n# SAME 3.3 V board: OUT -> 10 kohm -> IN; IN -> 1 uF -> GND.\n# Use a ceramic capacitor. Disconnect external circuits. Never connect 5 V.\n# The RC filter averages PWM; without it ADC readings depend on pulse phase.\n# 10..60% duty nominally means about 0.33..1.98 V on a 3.3 V supply.\n# Prints raw scaled ADC counts, NOT calibrated volts or 16-bit accuracy.\ndef main(spark):\n    settle = round(SETTINGS[\"settle\"])\n    samples = SETTINGS[\"samples\"]\n    print(\"duty_percent,adc_raw_mean\")\n    for percent in (10, 20, 30, 40, 50, 60, 50, 40, 30, 20, 10):\n        spark.pwm(PINS[\"OUT\"], 1000, round(percent * 65535 / 100))\n        yield spark.sleep_ms(settle)\n        total = 0\n        for sample in range(samples):\n            total += spark.adc_read_u16(PINS[\"IN\"])\n            yield spark.sleep_ms(5)\n        print(percent, round(total / samples), sep=\",\")\n    spark.pwm(PINS[\"OUT\"], 1000, 0)\n    yield spark.sleep_ms(100)\n",
+        "pins": [
+          {
+            "pad": "CN8.1",
+            "direction": "output"
+          },
+          {
+            "pad": "CN8.3",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 15000
+      }
+    },
+    {
+      "item": "console-messages",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {},
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "console-messages",
+        "name": "Console messages",
+        "description": "Prints numbered messages a set time apart. No wiring.",
+        "source": "# Written by BenchVista: console-messages 1.0.0, sha256 411fe091a8ebe408dae52c378ceae7aa3038a8a516aced5911e09ff048f720ff\nPINS = {}\nSETTINGS = {\"interval\": 1000, \"messages\": 5}\n\n# Console messages, a Spark Plug. CC0-1.0. No wiring needed.\ndef main(spark):\n    for number in range(SETTINGS[\"messages\"]):\n        print(\"Spark\", number + 1)\n        yield spark.sleep_ms(round(SETTINGS[\"interval\"]))\n",
+        "pins": [],
+        "timeoutMs": 60000
+      }
+    },
+    {
+      "item": "console-messages",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {},
+      "settings": {
+        "messages": 3,
+        "interval": 100
+      },
+      "task": {
+        "version": 1,
+        "id": "console-messages",
+        "name": "Console messages",
+        "description": "Prints numbered messages a set time apart. No wiring.",
+        "source": "# Written by BenchVista: console-messages 1.0.0, sha256 411fe091a8ebe408dae52c378ceae7aa3038a8a516aced5911e09ff048f720ff\nPINS = {}\nSETTINGS = {\"interval\": 100, \"messages\": 3}\n\n# Console messages, a Spark Plug. CC0-1.0. No wiring needed.\ndef main(spark):\n    for number in range(SETTINGS[\"messages\"]):\n        print(\"Spark\", number + 1)\n        yield spark.sleep_ms(round(SETTINGS[\"interval\"]))\n",
+        "pins": [],
+        "timeoutMs": 60000
+      }
+    },
+    {
+      "item": "pwm-adc-sweep",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {
+        "OUT": "J1.4",
+        "IN": "J1.5"
+      },
+      "settings": {
+        "settle": 62.5,
+        "samples": 2
+      },
+      "task": {
+        "version": 1,
+        "id": "pwm-adc-sweep",
+        "name": "Filtered PWM and ADC sweep",
+        "description": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+        "source": "# Written by BenchVista: pwm-adc-sweep 1.0.0, sha256 06f4048d7ac7560d2bb2fc0d092871bb08eb084553c562f806d3bd89780ed147\nPINS = {\"OUT\": \"J1.4\", \"IN\": \"J1.5\"}\nSETTINGS = {\"samples\": 2, \"settle\": 62.5}\n\n# Filtered PWM and ADC sweep, a Spark Plug. CC0-1.0. Needs the Spark PWM/ADC task API.\n# SAME 3.3 V board: OUT -> 10 kohm -> IN; IN -> 1 uF -> GND.\n# Use a ceramic capacitor. Disconnect external circuits. Never connect 5 V.\n# The RC filter averages PWM; without it ADC readings depend on pulse phase.\n# 10..60% duty nominally means about 0.33..1.98 V on a 3.3 V supply.\n# Prints raw scaled ADC counts, NOT calibrated volts or 16-bit accuracy.\ndef main(spark):\n    settle = round(SETTINGS[\"settle\"])\n    samples = SETTINGS[\"samples\"]\n    print(\"duty_percent,adc_raw_mean\")\n    for percent in (10, 20, 30, 40, 50, 60, 50, 40, 30, 20, 10):\n        spark.pwm(PINS[\"OUT\"], 1000, round(percent * 65535 / 100))\n        yield spark.sleep_ms(settle)\n        total = 0\n        for sample in range(samples):\n            total += spark.adc_read_u16(PINS[\"IN\"])\n            yield spark.sleep_ms(5)\n        print(percent, round(total / samples), sep=\",\")\n    spark.pwm(PINS[\"OUT\"], 1000, 0)\n    yield spark.sleep_ms(100)\n",
+        "pins": [
+          {
+            "pad": "J1.4",
+            "direction": "output"
+          },
+          {
+            "pad": "J1.5",
+            "direction": "input"
+          }
+        ],
+        "timeoutMs": 15000
+      }
+    }
+  ]
+}

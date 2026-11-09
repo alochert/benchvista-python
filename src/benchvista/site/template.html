@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>__TITLE__</title>
+    <meta name="description" content="__SUMMARY__" />
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --surface: #ffffff;
+        --text: #16191f;
+        --muted: #5b6370;
+        --line: #dde1e7;
+        --accent: #0b6bcb;
+        --accent-soft: #e6f0fb;
+        --plug: #8a4b00;
+        --plug-soft: #fbf0e2;
+        --step: #1c6b47;
+        --step-soft: #e4f4ec;
+        --ok: #1c6b47;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111418;
+          --surface: #191d23;
+          --text: #e8ebef;
+          --muted: #9aa3ae;
+          --line: #2c323b;
+          --accent: #6cb2ff;
+          --accent-soft: #16263a;
+          --plug: #f2b56b;
+          --plug-soft: #2e2214;
+          --step: #7fd3a8;
+          --step-soft: #15291f;
+          --ok: #7fd3a8;
+          color-scheme: dark;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          15px/1.5 system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+      }
+      a {
+        color: var(--accent);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+      header .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-top: 28px;
+        padding-bottom: 22px;
+      }
+      h1 {
+        font-size: 26px;
+        line-height: 1.2;
+        margin: 0 0 6px;
+      }
+      .summary {
+        margin: 0;
+        color: var(--muted);
+        max-width: 640px;
+      }
+      .meta {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      label.lang {
+        display: grid;
+        gap: 4px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      select,
+      input[type='search'] {
+        font: inherit;
+        color: var(--text);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 7px 10px;
+      }
+      .note {
+        font-size: 12px;
+        color: var(--muted);
+        max-width: 220px;
+      }
+      .limits {
+        margin: 20px 0 0;
+        padding: 12px 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin: 20px 0 14px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .chip {
+        font: inherit;
+        font-size: 13px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 999px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      .chip[aria-pressed='true'] {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .tools input[type='search'] {
+        flex: 1 1 220px;
+        min-width: 0;
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+        align-items: start;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px 16px;
+        min-width: 0;
+      }
+      .card h2 {
+        font-size: 17px;
+        margin: 6px 0 2px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .kind {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 1px 8px;
+      }
+      .kind.spark-plug {
+        color: var(--plug);
+        background: var(--plug-soft);
+      }
+      .kind.analysis-step {
+        color: var(--step);
+        background: var(--step-soft);
+      }
+      .facts {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 12px;
+        margin: 8px 0 0;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .tag {
+        font-size: 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 0 6px;
+      }
+      details {
+        margin-top: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 8px;
+      }
+      summary {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      h3 {
+        font-size: 13px;
+        text-transform: none;
+        margin: 12px 0 4px;
+        color: var(--muted);
+      }
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 8px 0 0;
+      }
+      .badge {
+        font-size: 12px;
+        border-radius: 6px;
+        padding: 1px 8px;
+        border: 1px solid var(--line);
+        color: var(--ok);
+      }
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+      }
+      .list li {
+        padding: 4px 0;
+        border-bottom: 1px dashed var(--line);
+        overflow-wrap: anywhere;
+      }
+      .list li:last-child {
+        border-bottom: 0;
+      }
+      .hash {
+        font-family: var(--mono);
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+      .copy {
+        font: inherit;
+        font-size: 12px;
+        margin-left: 6px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--accent);
+        border-radius: 6px;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      .help {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .empty {
+        color: var(--muted);
+        padding: 24px 0;
+      }
+      footer {
+        margin: 32px 0 0;
+        padding: 18px 0 28px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <div>
+          <h1 id="name"></h1>
+          <p class="summary" id="summary"></p>
+          <p class="meta" id="maintainer"></p>
+        </div>
+        <div>
+          <label class="lang"
+            ><span id="language-label"></span
+            ><select id="language"></select
+          ></label>
+          <p class="note" id="preview-note" hidden></p>
+        </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <p class="limits" id="limits"></p>
+      <div class="tools">
+        <div class="chips" id="kinds"></div>
+        <input type="search" id="search" />
+      </div>
+      <div class="grid" id="items"></div>
+      <p class="empty" id="empty" hidden></p>
+      <noscript
+        ><p>
+          <a href="collection.json">collection.json</a> · <a href="checksums.txt">checksums.txt</a>
+        </p></noscript
+      >
+    </main>
+    <footer class="wrap">
+      <nav id="links"></nav>
+      <div id="about"></div>
+      <div id="built"></div>
+    </footer>
+    <script type="application/json" id="data">
+      __DATA__
+    </script>
+    <script type="application/json" id="text">
+      __TEXT__
+    </script>
+    <script>
+      (() => {
+        const data = JSON.parse(document.getElementById('data').textContent);
+        const text = JSON.parse(document.getElementById('text').textContent);
+        const $ = (id) => document.getElementById(id);
+        const el = (tag, props = {}, ...children) => {
+          const node = document.createElement(tag);
+          for (const [key, value] of Object.entries(props)) {
+            if (key === 'class') node.className = value;
+            else if (key in node) node[key] = value;
+            else node.setAttribute(key, value);
+          }
+          for (const child of children)
+            if (child !== null && child !== undefined) node.append(child);
+          return node;
+        };
+        const stored = (() => {
+          try {
+            return localStorage.getItem('benchvista-collection-language');
+          } catch {
+            return null;
+          }
+        })();
+        const asked = new URLSearchParams(location.search).get('lang');
+        let locale =
+          [asked, stored].find((code) => code && text.locales.some((l) => l.code === code)) || 'en';
+        let kind = 'all';
+        let query = '';
+
+        // English is the original. Another language is an explicit choice and shows unreviewed drafts.
+        function t(id, args = {}) {
+          const english = text.messages.en[id] ?? id;
+          const template = (locale !== 'en' && text.messages[locale]?.[id]) || english;
+          return template.replace(/\{(\w+)\}/g, (_, name) =>
+            name in args ? String(args[name]) : `{${name}}`,
+          );
+        }
+        const format = () => text.locales.find((l) => l.code === locale)?.format || 'en-GB';
+        const number = (value) =>
+          new Intl.NumberFormat(format(), { maximumFractionDigits: 6 }).format(value);
+        const date = (value) =>
+          new Intl.DateTimeFormat(format(), { dateStyle: 'medium', timeZone: 'UTC' }).format(
+            new Date(value),
+          );
+        // The author's own drafts, for the selected language only.
+        const own = (pkg, key, english) =>
+          (locale !== 'en' && pkg.translations?.[locale]?.[key]) || english;
+
+        function copyButton(value) {
+          const button = el('button', {
+            class: 'copy',
+            type: 'button',
+            textContent: t('collection.copy'),
+          });
+          button.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(value);
+              button.textContent = t('collection.copied');
+            } catch {
+              /* the hash stays selectable */
+            }
+          });
+          return button;
+        }
+        const versionLabel = (record) => t('collection.version', { version: record.version });
+
+        function pinsSection(pkg) {
+          if (pkg.kind !== 'spark-plug') return null;
+          const list = el('ul', { class: 'list' });
+          if (pkg.pins.length === 0) list.append(el('li', { textContent: t('collection.noPins') }));
+          for (const pin of pkg.pins) {
+            const what = [
+              t(pin.direction === 'output' ? 'collection.pin.output' : 'collection.pin.input'),
+              t('collection.pin.' + pin.needs),
+            ].join(' · ');
+            list.append(
+              el(
+                'li',
+                {},
+                el('strong', { textContent: pin.role }),
+                ' — ',
+                own(pkg, 'role.' + pin.role, pin.label),
+                el('div', { class: 'help', textContent: what }),
+              ),
+            );
+          }
+          return el('div', {}, el('h3', { textContent: t('collection.pins') }), list);
+        }
+        function settingsSection(pkg) {
+          const settings = Object.entries(pkg.settings || {});
+          if (pkg.kind !== 'spark-plug' || settings.length === 0) return null;
+          const list = el('ul', { class: 'list' });
+          for (const [name, setting] of settings) {
+            const unit = setting.kind === 'quantity' ? ' ' + setting.unit : '';
+            const shown = (value) =>
+              typeof value === 'number'
+                ? number(value) + unit
+                : setting.kind === 'choice'
+                  ? own(pkg, `setting.${name}.choice.${value}`, setting.labels?.[value] || value)
+                  : String(value);
+            const parts = [t('collection.setting.default', { value: shown(setting.default) })];
+            if (setting.minimum !== undefined && setting.maximum !== undefined)
+              parts.push(
+                t('collection.setting.range', {
+                  minimum: shown(setting.minimum),
+                  maximum: shown(setting.maximum),
+                }),
+              );
+            list.append(
+              el(
+                'li',
+                {},
+                own(pkg, `setting.${name}.label`, setting.label),
+                el('div', { class: 'help', textContent: parts.join(' · ') }),
+              ),
+            );
+          }
+          return el('div', {}, el('h3', { textContent: t('collection.settings') }), list);
+        }
+        function badges(record) {
+          const out = el('div', { class: 'badges' });
+          out.append(
+            el('span', {
+              class: 'badge',
+              title: t('collection.badge.checksumsHelp'),
+              textContent: '✓ ' + t('collection.badge.checksums'),
+            }),
+          );
+          if (data.attested)
+            out.append(
+              el('span', {
+                class: 'badge',
+                title: t('collection.badge.attestedHelp', { commit: data.commit.slice(0, 12) }),
+                textContent: '✓ ' + t('collection.badge.attested'),
+              }),
+            );
+          if ((data.reviewed || []).includes(record.sha256))
+            out.append(
+              el('span', {
+                class: 'badge',
+                title: t('collection.badge.reviewedHelp'),
+                textContent: '✓ ' + t('collection.badge.reviewed'),
+              }),
+            );
+          return out;
+        }
+        function versionBlock(record) {
+          const files = el('ul', { class: 'list' });
+          for (const file of record.files)
+            files.append(
+              el(
+                'li',
+                {},
+                el('a', { href: `v/${record.sha256}/${file.path}`, textContent: file.path }),
+                ' ',
+                el('span', {
+                  class: 'help',
+                  textContent: t('collection.file.bytes', { size: number(file.bytes) }),
+                }),
+                el('div', { class: 'hash', textContent: file.sha256 }),
+              ),
+            );
+          return el(
+            'div',
+            {},
+            el('h3', { textContent: t('collection.versionHash') }),
+            el(
+              'div',
+              {},
+              el('span', { class: 'hash', textContent: record.sha256 }),
+              copyButton(record.sha256),
+            ),
+            record.released
+              ? el('div', {
+                  class: 'help',
+                  textContent: t('collection.released', { date: date(record.released) }),
+                })
+              : null,
+            badges(record),
+            el('h3', { textContent: t('collection.files') }),
+            files,
+          );
+        }
+        function card(item) {
+          const latest = item.versions[0];
+          const pkg = latest.package;
+          const facts = el(
+            'div',
+            { class: 'facts' },
+            el('span', { textContent: versionLabel(latest) }),
+            el('span', { textContent: t('collection.license', { license: pkg.license }) }),
+          );
+          if (pkg.kind === 'spark-plug')
+            facts.append(
+              el('span', {
+                textContent: t('collection.timeLimit', { seconds: number(pkg.timeoutMs / 1000) }),
+              }),
+            );
+          for (const tag of pkg.tags || [])
+            facts.append(el('span', { class: 'tag', textContent: tag }));
+          const details = el(
+            'details',
+            {},
+            el('summary', { textContent: t('collection.details') }),
+            pinsSection(pkg),
+            settingsSection(pkg),
+            versionBlock(latest),
+          );
+          if (item.versions.length > 1) {
+            const older = el('ul', { class: 'list' });
+            for (const record of item.versions.slice(1))
+              older.append(
+                el(
+                  'li',
+                  {},
+                  el(
+                    'details',
+                    {},
+                    el('summary', { textContent: versionLabel(record) }),
+                    versionBlock(record),
+                  ),
+                ),
+              );
+            details.append(el('h3', { textContent: t('collection.versions') }), older);
+          }
+          return el(
+            'article',
+            { class: 'card', id: item.id },
+            el('span', {
+              class: 'kind ' + pkg.kind,
+              textContent: t(
+                pkg.kind === 'spark-plug'
+                  ? 'collection.kind.sparkPlug'
+                  : 'collection.kind.analysisStep',
+              ),
+            }),
+            el('h2', { textContent: own(pkg, 'name', pkg.name) }),
+            el('p', { textContent: own(pkg, 'summary', pkg.summary) }),
+            facts,
+            details,
+          );
+        }
+        function matches(item) {
+          if (kind !== 'all' && item.kind !== kind) return false;
+          if (!query) return true;
+          const pkg = item.versions[0].package;
+          const haystack = [
+            item.id,
+            pkg.name,
+            own(pkg, 'name', pkg.name),
+            pkg.summary,
+            ...(pkg.tags || []),
+            ...item.versions.map((v) => v.sha256),
+          ]
+            .join(' ')
+            .toLowerCase();
+          return haystack.includes(query);
+        }
+        function render() {
+          document.documentElement.lang = locale;
+          document.title = data.name;
+          $('name').textContent = data.name;
+          $('summary').textContent = data.summary;
+          $('maintainer').textContent = t('collection.maintainer', { maintainer: data.maintainer });
+          $('language-label').textContent = t('collection.language');
+          const select = $('language');
+          select.replaceChildren(
+            ...text.locales.map((l) =>
+              el('option', {
+                value: l.code,
+                textContent:
+                  l.code === 'en' ? l.name : t('collection.previewOption', { language: l.name }),
+                selected: l.code === locale,
+              }),
+            ),
+          );
+          $('preview-note').hidden = locale === 'en';
+          $('preview-note').textContent = t('common.previewNote');
+          $('limits').textContent = t('collection.limits');
+          $('search').placeholder = t('collection.search');
+          $('search').setAttribute('aria-label', t('collection.search'));
+          $('kinds').replaceChildren(
+            ...[
+              ['all', 'collection.kind.all'],
+              ['spark-plug', 'collection.kind.sparkPlugs'],
+              ['analysis-step', 'collection.kind.analysisSteps'],
+            ].map(([value, id]) => {
+              const chip = el('button', {
+                class: 'chip',
+                type: 'button',
+                textContent: t(id),
+                'aria-pressed': String(kind === value),
+              });
+              chip.addEventListener('click', () => {
+                kind = value;
+                render();
+              });
+              return chip;
+            }),
+          );
+          const shown = data.items.filter(matches);
+          $('items').replaceChildren(...shown.map(card));
+          $('empty').hidden = shown.length > 0;
+          $('empty').textContent = t('collection.empty');
+          const links = [
+            ['collection.json', 'collection.footer.index'],
+            ['checksums.txt', 'collection.footer.checksums'],
+          ];
+          if (data.attested)
+            links.push(['attestation.sigstore.json', 'collection.footer.attestation']);
+          links.push([`https://github.com/${data.repository}`, 'collection.footer.repository']);
+          $('links').replaceChildren(
+            ...links.map(([href, id]) => el('a', { href, textContent: t(id) })),
+          );
+          $('about').textContent = t('collection.footer.about');
+          $('built').textContent = data.commit
+            ? t('collection.footer.built', { commit: data.commit.slice(0, 12) })
+            : '';
+        }
+        $('language').addEventListener('change', (event) => {
+          locale = event.target.value;
+          try {
+            localStorage.setItem('benchvista-collection-language', locale);
+          } catch {
+            /* per-visit choice only */
+          }
+          render();
+        });
+        $('search').addEventListener('input', (event) => {
+          query = event.target.value.trim().toLowerCase();
+          render();
+          $('search').focus();
+        });
+        render();
+      })();
+    </script>
+  </body>
+</html>

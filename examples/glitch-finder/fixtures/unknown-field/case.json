@@ -1,0 +1,11 @@
+{
+  "params": {
+    "fields": [
+      "CH9"
+    ]
+  },
+  "inputs": {
+    "lines": "lines"
+  },
+  "error": "NODE_PARAMS"
+}

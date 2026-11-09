@@ -1,0 +1,45 @@
+{
+  "kind": "spark-plug",
+  "id": "pwm-adc-sweep",
+  "version": "1.0.0",
+  "name": "Filtered PWM and ADC sweep",
+  "summary": "Sweeps PWM duty through a 10 kohm and 1 uF RC filter and prints raw ADC counts, not calibrated volts.",
+  "license": "CC0-1.0",
+  "entry": "main.py",
+  "tags": ["example", "pwm", "adc"],
+  "pins": [
+    {
+      "role": "OUT",
+      "direction": "output",
+      "needs": "pwm",
+      "label": "PWM output to the 10 kohm resistor"
+    },
+    {
+      "role": "IN",
+      "direction": "input",
+      "needs": "adc",
+      "label": "ADC input at the 1 uF capacitor"
+    }
+  ],
+  "settings": {
+    "settle": {
+      "kind": "quantity",
+      "quantity": "time",
+      "unit": "ms",
+      "default": 250,
+      "minimum": 50,
+      "maximum": 1000,
+      "label": "Settling time per step",
+      "help": "The RC filter needs about five time constants (50 ms) to settle."
+    },
+    "samples": {
+      "kind": "integer",
+      "default": 8,
+      "minimum": 1,
+      "maximum": 32,
+      "label": "ADC readings per step"
+    }
+  },
+  "timeoutMs": 15000,
+  "sparkTaskApi": 1
+}

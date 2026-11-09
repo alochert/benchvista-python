@@ -1,0 +1,17 @@
+{
+  "params": {
+    "shortest": 0.000003,
+    "edge": "rising",
+    "fields": [
+      "CH1",
+      "CH0"
+    ]
+  },
+  "inputs": {
+    "lines": "lines"
+  },
+  "expect": {
+    "glitches": "sha256:515478957b687b2cd334f9b02d49cdd7e68f706bf992f25b2bb271e69fbf3999"
+  },
+  "note": "2 glitches, the first: CH0@1000, CH0@9200"
+}

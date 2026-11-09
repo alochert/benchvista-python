@@ -1,0 +1,26 @@
+{
+  "kind": "spark-plug",
+  "id": "gpio-loopback",
+  "version": "1.0.0",
+  "name": "Digital loopback test",
+  "summary": "Writes low and high through a 1 kohm resistor and checks that the input reads the same level.",
+  "license": "CC0-1.0",
+  "entry": "main.py",
+  "tags": ["example", "digital"],
+  "pins": [
+    {
+      "role": "OUT",
+      "direction": "output",
+      "needs": "digital",
+      "label": "Output to the 1 kohm resistor"
+    },
+    {
+      "role": "IN",
+      "direction": "input",
+      "needs": "digital",
+      "label": "Input from the 1 kohm resistor"
+    }
+  ],
+  "timeoutMs": 10000,
+  "sparkTaskApi": 1
+}

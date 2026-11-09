@@ -1,0 +1,10 @@
+{
+  "kind": "analysis-step",
+  "id": "glitch-finder",
+  "version": "1.0.0",
+  "name": "Glitch finder",
+  "summary": "Finds pulses shorter than a limit on digital lines.",
+  "license": "CC0-1.0",
+  "entry": "step.py",
+  "tags": ["example", "digital"]
+}

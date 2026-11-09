@@ -1,0 +1,117 @@
+[
+  {
+    "name": "micro",
+    "input": {
+      "number": "1e-6"
+    },
+    "canonical": "0.000001",
+    "sha256": "159fb29a827ad04b260aa6c8ab6d8637f8f2b38af5c4f3cb49d6a21205e040f8"
+  },
+  {
+    "name": "tenth of a micro",
+    "input": {
+      "number": "1e-7"
+    },
+    "canonical": "1e-7",
+    "sha256": "5b33e02f2c5103a05d32f6ba9cb058294452bfbf393967f68bb30c1bdcbbab22"
+  },
+  {
+    "name": "just below 1e21",
+    "input": {
+      "number": "123456789012345680000"
+    },
+    "canonical": "123456789012345680000",
+    "sha256": "725abf175290195635e55a971cf88e02a46d6d56e964ec2d8bc47614b9559062"
+  },
+  {
+    "name": "1e21",
+    "input": {
+      "number": "1e21"
+    },
+    "canonical": "1e+21",
+    "sha256": "241c4643fa70b1dcde1205b71be4e3bebb17e9f880c8e1a33d0ead6c27271d3c"
+  },
+  {
+    "name": "negative zero",
+    "input": {
+      "number": "-0"
+    },
+    "canonical": "0",
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "name": "sum",
+    "input": {
+      "number": "0.30000000000000004"
+    },
+    "canonical": "0.30000000000000004",
+    "sha256": "06bad31060c1212ae832de4c031f7b31e3b48aed57858294478cb19450cf34ca"
+  },
+  {
+    "name": "smallest",
+    "input": {
+      "number": "5e-324"
+    },
+    "canonical": "5e-324",
+    "sha256": "c46e7ca1be4c8734f373a56530787288fa2058d73d07855e9247e949f811a42a"
+  },
+  {
+    "name": "largest",
+    "input": {
+      "number": "1.7976931348623157e308"
+    },
+    "canonical": "1.7976931348623157e+308",
+    "sha256": "c2784e1abd6317452708f3fbf9641c16b959561bc621a1d408c23a20aa2cb585"
+  },
+  {
+    "name": "negative",
+    "input": {
+      "number": "-1.5"
+    },
+    "canonical": "-1.5",
+    "sha256": "37c2b212b94e5372b33df924ea2a91182d90c237d0bf942c1768e794ebef2376"
+  },
+  {
+    "name": "safe integer",
+    "input": {
+      "number": "9007199254740991"
+    },
+    "canonical": "9007199254740991",
+    "sha256": "f40b423c2dd95ff2b2f027e22208f438cf7242862e5e746860e697308c9add26"
+  },
+  {
+    "name": "integral float",
+    "input": {
+      "number": "100"
+    },
+    "canonical": "100",
+    "sha256": "ad57366865126e55649ecb23ae1d48887544976efea46a48eb5d85a6eeb4d306"
+  },
+  {
+    "name": "text",
+    "input": {
+      "value": "line sep\nnew \"quoted\" \\ é 😀 \u0001"
+    },
+    "canonical": "\"line sep\\nnew \\\"quoted\\\" \\\\ é 😀 \\u0001\"",
+    "sha256": "ab553457d7e2418b843492711c7dbf7affa54bafaf7f981e748e71db499f2b78"
+  },
+  {
+    "name": "object",
+    "input": {
+      "value": {
+        "b": 1,
+        "a": [
+          true,
+          false,
+          null
+        ],
+        "é": 2,
+        "Z": 3,
+        "😀": "x",
+        "￿": "y"
+      }
+    },
+    "canonical": "{\"Z\":3,\"a\":[true,false,null],\"b\":1,\"é\":2,\"😀\":\"x\",\"￿\":\"y\"}",
+    "sha256": "9bb8746e7200e023e48e2608bf931ec57fd27b4e2208f2eaed727d56cbc9f6a9"
+  }
+]

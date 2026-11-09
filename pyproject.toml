@@ -1,0 +1,31 @@
+[project]
+name = "benchvista"
+version = "0.1.0"
+description = "Write, check, test and publish BenchVista Spark Plugs and Python analysis steps."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+# The base environment's numpy (docs/analysis-python-steps.md §15.4): a step built against
+# this package sees the same numpy a host runs it with.
+dependencies = ["numpy==2.2.5"]
+
+[project.urls]
+Source = "https://github.com/alochert/benchvista-python"
+Collection = "https://github.com/alochert/benchvista-collection"
+
+[project.scripts]
+benchvista = "benchvista.cli:main"
+
+[dependency-groups]
+dev = ["pytest==8.4.2"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/benchvista"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

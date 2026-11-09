@@ -1,0 +1,12 @@
+{
+  "params": {
+    "shortest": 7.6e-7
+  },
+  "inputs": {
+    "lines": "lines"
+  },
+  "expect": {
+    "glitches": "sha256:45624232e0c1b97c917f56ec8392eb3712d2795b259cad77fae8204098481c0d"
+  },
+  "note": "144 glitches, the first: D0@250, D0@500, D0@750, D0@1250, D0@1500, D0@2000"
+}

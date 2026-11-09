@@ -1,0 +1,4 @@
+{
+  "settings": { "messages": 3, "interval": 100 },
+  "expect": { "state": "complete", "output": "Spark 1\nSpark 2\nSpark 3\n" }
+}

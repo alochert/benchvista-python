@@ -1,0 +1,302 @@
+{
+  "columns": [
+    {
+      "file": "chunks/f32.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "f32",
+          "type": "f32",
+          "nullable": false
+        }
+      ],
+      "values": [
+        0,
+        "-0",
+        1.5,
+        -0.000032500000088475645,
+        3.3999999521443642e+38
+      ],
+      "valid": null,
+      "sha256": "aa4d86b228ed97eeb032c2de40cc6d1a3ca37698f1cb5b4cf8ff6e4c19cb533f"
+    },
+    {
+      "file": "chunks/f64.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "f64",
+          "type": "f64",
+          "nullable": true
+        }
+      ],
+      "values": [
+        0.1,
+        0,
+        3.141592653589793,
+        -1e-300,
+        1e+300
+      ],
+      "valid": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "sha256": "3a1fc0ab81e2498ed83a4b1e3cfb4b35500f7dd0155e8cdeb77515630fb9e9d5"
+    },
+    {
+      "file": "chunks/i32.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "i32",
+          "type": "i32",
+          "nullable": false
+        }
+      ],
+      "values": [
+        -2147483648,
+        -1,
+        0,
+        1,
+        2147483647
+      ],
+      "valid": null,
+      "sha256": "467a25e97fd2b7b9e93fee50fff7a55f37a688ee8f9309a31d35410be2baf8de"
+    },
+    {
+      "file": "chunks/u32.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "u32",
+          "type": "u32",
+          "nullable": false
+        }
+      ],
+      "values": [
+        0,
+        1,
+        65535,
+        65536,
+        4294967295
+      ],
+      "valid": null,
+      "sha256": "69a8e0b531823ed8a6290e77da27bb9bcfe82d27d63b3912ce3b66336249274c"
+    },
+    {
+      "file": "chunks/i64.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "i64",
+          "type": "i64",
+          "nullable": false
+        }
+      ],
+      "values": [
+        "-9223372036854775808",
+        "-1",
+        "0",
+        "1",
+        "9223372036854775807"
+      ],
+      "valid": null,
+      "sha256": "67c21f821a9b604257c1561d6b51b6f0f7348ea0986329d35a8a03193cc431c6"
+    },
+    {
+      "file": "chunks/u64.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "u64",
+          "type": "u64",
+          "nullable": false
+        }
+      ],
+      "values": [
+        "0",
+        "1",
+        "9007199254740993",
+        "9223372036854775808",
+        "18446744073709551615"
+      ],
+      "valid": null,
+      "sha256": "5e32109a1a517c3aa36eda0f2f3015399c2aa0c5bf948e01096ea9a1411aa515"
+    },
+    {
+      "file": "chunks/tick.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "tick",
+          "type": "tick",
+          "nullable": false
+        }
+      ],
+      "values": [
+        "-5",
+        "0",
+        "7",
+        "1000000000000",
+        "9007199254740993"
+      ],
+      "valid": null,
+      "sha256": "e896e8ddaf95541255a8698acb2285dbcca75ad7ea8429560fdaa166530849ab"
+    },
+    {
+      "file": "chunks/bool.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "bool",
+          "type": "bool",
+          "nullable": true
+        }
+      ],
+      "values": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "valid": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "sha256": "797bf327ac57daa4b761d6d320e500e0a2b31ba7446319fb8bbf08637db98dcf"
+    },
+    {
+      "file": "chunks/tri.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "tri",
+          "type": "tri",
+          "nullable": false
+        }
+      ],
+      "values": [
+        0,
+        1,
+        2,
+        1,
+        0
+      ],
+      "valid": null,
+      "sha256": "f32e12b0b4fd8faa90486bc8d584fa00dabe63dcec44adb33cc4d10653f8fef5"
+    },
+    {
+      "file": "chunks/complex.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "complex",
+          "type": "complex",
+          "nullable": false
+        }
+      ],
+      "values": [
+        [
+          1,
+          -1
+        ],
+        [
+          0.5,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          -3,
+          4
+        ],
+        [
+          1e-9,
+          -1000000000
+        ]
+      ],
+      "valid": null,
+      "sha256": "28ef28e0056afcd4eacf7d49cd4f8c958244a37d7dca67f97939951338614e87"
+    },
+    {
+      "file": "chunks/enum.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "enum",
+          "type": "enum",
+          "nullable": false
+        }
+      ],
+      "values": [
+        0,
+        2,
+        1,
+        65535,
+        3
+      ],
+      "valid": null,
+      "sha256": "5b1b7e3fd8d7c82d5fa82bff64b44fc41d34347a527f357a0d9610964149265d"
+    },
+    {
+      "file": "chunks/utf8.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "utf8",
+          "type": "utf8",
+          "nullable": true
+        }
+      ],
+      "values": [
+        "",
+        "é",
+        "😀 emoji",
+        "line\nbreak",
+        "ascii"
+      ],
+      "valid": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "sha256": "810afb7980e3a18d021a2c8cdbe9c4c6a195d7583649ef692c2352cdec7fcd8f"
+    },
+    {
+      "file": "chunks/json.bin",
+      "rows": 5,
+      "layout": [
+        {
+          "name": "json",
+          "type": "json",
+          "nullable": false
+        }
+      ],
+      "values": [
+        "{}",
+        "[1,2]",
+        "\"x\"",
+        "null",
+        "{\"a\":\"é\"}"
+      ],
+      "valid": null,
+      "sha256": "3c3cb4ad3aa3be87c48dea77522d7ac73b57728265b21a263ba6a977c60ae5b4"
+    }
+  ],
+  "all": {
+    "file": "chunks/all.bin",
+    "rows": 5,
+    "sha256": "c0c7ca2fcd5d14d0b28aaae73f5c15355f06232bd7c0137d43c981d4490700b1"
+  }
+}

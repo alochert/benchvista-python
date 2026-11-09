@@ -1,0 +1,182 @@
+{
+  "budget": {
+    "maxMemoryBytes": 1073741824,
+    "maxOutputBytes": 268435456,
+    "maxRows": 10000000,
+    "maxSeconds": 60
+  },
+  "category": "measure",
+  "errors": [],
+  "format": "benchvista-python-step-v1",
+  "id": "glitch-finder",
+  "inputs": {
+    "lines": {
+      "cardinality": "one",
+      "pattern": {
+        "axis": {
+          "kind": [
+            "uniform",
+            "points"
+          ]
+        },
+        "fields": {
+          "min": 1,
+          "type": "tri"
+        },
+        "kind": "series"
+      }
+    }
+  },
+  "outputs": {
+    "glitches": {
+      "fields": [
+        {
+          "clock": {
+            "axisOf": "lines"
+          },
+          "name": "start",
+          "nullable": false,
+          "type": "tick"
+        },
+        {
+          "name": "width",
+          "nullable": false,
+          "quantity": "time",
+          "type": "f64",
+          "unit": "s"
+        },
+        {
+          "name": "field",
+          "nullable": false,
+          "type": "utf8"
+        }
+      ],
+      "kind": "table"
+    }
+  },
+  "params": {
+    "edge": {
+      "choices": [
+        "rising",
+        "falling",
+        "both"
+      ],
+      "default": "both",
+      "kind": "choice",
+      "required": false
+    },
+    "fields": {
+      "kind": "fields",
+      "min": 1,
+      "of": "lines",
+      "type": "tri"
+    },
+    "shortest": {
+      "default": 1e-06,
+      "kind": "quantity",
+      "minimum": 0,
+      "quantity": "time",
+      "required": false,
+      "unit": "s"
+    }
+  },
+  "purity": "pure",
+  "runtime": {
+    "base": "2026.1",
+    "extras": null,
+    "python": "3.13",
+    "runtimes": [
+      "connect"
+    ]
+  },
+  "sdk": {
+    "name": "benchvista",
+    "version": "0.1.0"
+  },
+  "source": {
+    "entry": "step:GlitchFinder",
+    "files": [
+      {
+        "bytes": 3926,
+        "path": "step.py",
+        "sha256": "1e7996442962abde3514aff7dede1383d1ea4f8cfe8c9e8667c7703463a6ac3b"
+      }
+    ]
+  },
+  "text": {
+    "drafts": {
+      "de": {
+        "name": {
+          "provenance": "author",
+          "source": "96067d658894c2c828331bc8c0b4d08bdfe691483c49162b3944533739586637",
+          "text": "Glitch-Sucher"
+        },
+        "param.shortest.label": {
+          "provenance": "author",
+          "source": "56c0265bb6bf43ecaa74aa0b3937d2dda407625ebc1a98b31257805768f28d55",
+          "text": "Kürzester gültiger Puls"
+        }
+      },
+      "nb": {
+        "name": {
+          "provenance": "author",
+          "source": "96067d658894c2c828331bc8c0b4d08bdfe691483c49162b3944533739586637",
+          "text": "Glitch-søker"
+        },
+        "param.shortest.label": {
+          "provenance": "author",
+          "source": "56c0265bb6bf43ecaa74aa0b3937d2dda407625ebc1a98b31257805768f28d55",
+          "text": "Korteste gyldige puls"
+        }
+      }
+    },
+    "messages": {
+      "name": {
+        "en": "Glitch finder",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.edge.choice.both": {
+        "en": "Both",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.edge.choice.falling": {
+        "en": "Low pulses",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.edge.choice.rising": {
+        "en": "High pulses",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.edge.label": {
+        "en": "Pulses",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.fields.label": {
+        "en": "Lines to check",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.shortest.help": {
+        "en": "Pulses shorter than this are listed as glitches.",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "param.shortest.label": {
+        "en": "Shortest valid pulse",
+        "risk": "ordinary",
+        "tokens": []
+      },
+      "purpose": {
+        "en": "Finds pulses shorter than a limit on digital lines.",
+        "risk": "ordinary",
+        "tokens": []
+      }
+    }
+  },
+  "version": "1.0.0"
+}

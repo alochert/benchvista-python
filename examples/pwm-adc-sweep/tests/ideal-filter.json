@@ -1,0 +1,8 @@
+{
+  "wiring": { "IN": "OUT" },
+  "expect": {
+    "state": "complete",
+    "lines": 12,
+    "contains": ["duty_percent,adc_raw_mean\n10,6554\n", "60,39321"]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "params": {
+    "shortest": 0.000003,
+    "edge": "falling"
+  },
+  "inputs": {
+    "lines": "lines"
+  },
+  "expect": {
+    "glitches": "sha256:fd4e779fd7aa1ceca4dd431438bed6b925c1c6a9f697e32f8527970fe4acdeb1"
+  },
+  "note": "2 glitches, the first: CH1@3000, CH0@9000"
+}

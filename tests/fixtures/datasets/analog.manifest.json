@@ -1,0 +1,78 @@
+{
+  "format": "benchvista-dataset-v1",
+  "id": "sha256:62f1805ebf8cfbb76e37cceb5ed041f2ae195b37ac8e745b89b78ad81d0d613b",
+  "type": {
+    "kind": "series",
+    "axis": {
+      "kind": "uniform",
+      "clock": "clk:fixture"
+    },
+    "fields": [
+      {
+        "name": "CH1",
+        "type": "f64",
+        "quantity": "voltage",
+        "unit": "V",
+        "nullable": true
+      },
+      {
+        "name": "CH2",
+        "type": "f32",
+        "quantity": "voltage",
+        "unit": "mV",
+        "nullable": false
+      }
+    ],
+    "coherence": "joint"
+  },
+  "extent": {
+    "kind": "uniform",
+    "origin": "-100",
+    "step": "8",
+    "count": "70000"
+  },
+  "rows": 70000,
+  "clocks": [
+    {
+      "id": "clk:fixture",
+      "basis": "simulated",
+      "secondsPerTick": [
+        "1",
+        "1000000000"
+      ]
+    }
+  ],
+  "quality": [
+    {
+      "field": "CH1",
+      "unit": "ticks",
+      "from": "0",
+      "until": "800",
+      "code": "CLIPPED"
+    }
+  ],
+  "provenance": {
+    "origin": {
+      "kind": "simulated"
+    },
+    "producedBy": null,
+    "notes": []
+  },
+  "sealed": true,
+  "chunks": [
+    {
+      "sequence": 0,
+      "rows": 65536,
+      "encoding": "columnar-le/v1",
+      "bytes": 851968,
+      "sha256": "690db2fbf20a0879e2d7e45ef1800ec712db378dcd64d385aafce1e88c0a7237"
+    },
+    {
+      "sequence": 1,
+      "rows": 4464,
+      "encoding": "columnar-le/v1",
+      "bytes": 58032,
+      "sha256": "6ece64f521f3ec6189f1404d930450e99ca8cf8d2075a7c580ebbad93f4f2408"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "format": "benchvista-dataset-v1",
+  "id": "sha256:7e08e2c3e3d1fc597116d0fcf5a0d50a6fc7da6b0ae89010a0b6ec6b8a04c10a",
+  "type": {
+    "kind": "series",
+    "axis": {
+      "kind": "uniform",
+      "clock": "clk:fixture"
+    },
+    "fields": [
+      {
+        "name": "D0",
+        "type": "tri",
+        "nullable": false
+      }
+    ],
+    "coherence": "joint"
+  },
+  "extent": {
+    "kind": "uniform",
+    "origin": "0",
+    "step": "250",
+    "count": "200"
+  },
+  "rows": 200,
+  "clocks": [
+    {
+      "id": "clk:fixture",
+      "basis": "simulated",
+      "secondsPerTick": [
+        "1",
+        "1000000000"
+      ]
+    }
+  ],
+  "quality": [],
+  "provenance": {
+    "origin": {
+      "kind": "simulated"
+    },
+    "producedBy": null,
+    "notes": []
+  },
+  "sealed": true,
+  "chunks": [
+    {
+      "sequence": 0,
+      "rows": 200,
+      "encoding": "columnar-le/v1",
+      "bytes": 200,
+      "sha256": "e2affe6a93911610fbf9dfd332b33dbafa02263a26603894591d8149f9818988"
+    }
+  ]
+}

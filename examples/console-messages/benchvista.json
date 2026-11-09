@@ -1,0 +1,35 @@
+{
+  "kind": "spark-plug",
+  "id": "console-messages",
+  "version": "1.0.0",
+  "name": "Console messages",
+  "summary": "Prints numbered messages a set time apart. No wiring.",
+  "license": "CC0-1.0",
+  "entry": "main.py",
+  "tags": ["example", "console"],
+  "pins": [],
+  "settings": {
+    "messages": {
+      "kind": "integer",
+      "default": 5,
+      "minimum": 1,
+      "maximum": 20,
+      "label": "Messages"
+    },
+    "interval": {
+      "kind": "quantity",
+      "quantity": "time",
+      "unit": "ms",
+      "default": 1000,
+      "minimum": 100,
+      "maximum": 2000,
+      "label": "Time between messages"
+    }
+  },
+  "timeoutMs": 60000,
+  "sparkTaskApi": 1,
+  "translations": {
+    "nb": { "name": "Konsollmeldinger", "setting.messages.label": "Meldinger" },
+    "de": { "name": "Konsolenmeldungen", "setting.messages.label": "Meldungen" }
+  }
+}
