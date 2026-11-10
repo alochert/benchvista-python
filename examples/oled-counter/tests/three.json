@@ -1,0 +1,8 @@
+{
+  "settings": { "count": 3, "interval": 100 },
+  "expect": {
+    "state": "complete",
+    "output": "count 1\ncount 2\ncount 3\n",
+    "display": { "DISPLAY": ["BenchVista", "Count 3"] }
+  }
+}

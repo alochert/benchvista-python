@@ -18,6 +18,8 @@
         --plug-soft: #fbf0e2;
         --step: #1c6b47;
         --step-soft: #e4f4ec;
+        --driver: #2f4f9c;
+        --driver-soft: #e7ecfa;
         --ok: #1c6b47;
         --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         color-scheme: light;
@@ -35,6 +37,8 @@
           --plug-soft: #2e2214;
           --step: #7fd3a8;
           --step-soft: #15291f;
+          --driver: #a9bdf5;
+          --driver-soft: #1a2238;
           --ok: #7fd3a8;
           color-scheme: dark;
         }
@@ -184,6 +188,10 @@
       .kind.analysis-step {
         color: var(--step);
         background: var(--step-soft);
+      }
+      .kind.spark-driver {
+        color: var(--driver);
+        background: var(--driver-soft);
       }
       .facts {
         display: flex;
@@ -590,7 +598,9 @@
               textContent: t(
                 pkg.kind === 'spark-plug'
                   ? 'collection.kind.sparkPlug'
-                  : 'collection.kind.analysisStep',
+                  : pkg.kind === 'spark-driver'
+                    ? 'collection.kind.sparkDriver'
+                    : 'collection.kind.analysisStep',
               ),
             }),
             el('h2', { textContent: own(pkg, 'name', pkg.name) }),
@@ -644,6 +654,7 @@
               ['all', 'collection.kind.all'],
               ['spark-plug', 'collection.kind.sparkPlugs'],
               ['analysis-step', 'collection.kind.analysisSteps'],
+              ['spark-driver', 'collection.kind.sparkDrivers'],
             ].map(([value, id]) => {
               const chip = el('button', {
                 class: 'chip',

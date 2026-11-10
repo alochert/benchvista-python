@@ -200,6 +200,93 @@
         }
       ],
       "sha256": "a4f2e2e5bca306c7f2dd95771cbaa83211fc4843c6fd7e5d78645ccd88ccea76"
+    },
+    {
+      "item": "oled-counter",
+      "kind": "spark-plug",
+      "id": "oled-counter",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 678,
+          "sha256": "7f2986a548b9e51f1f28c384564134bf4aba4a24f3464ac2177956d248c2f8ea"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 839,
+          "sha256": "5203abf9307172d92a0a098a9890eeef0bc13762ddcbfbee4b1296169b5ca273"
+        },
+        {
+          "path": "main.py",
+          "bytes": 544,
+          "sha256": "d89152bd86651aca4a3d3129d6cbe09e4da71e3a59bba9d8c8dfbb7870051ebb"
+        },
+        {
+          "path": "tests/three.json",
+          "bytes": 195,
+          "sha256": "02dcfb6bb3df5a7cec22774c04e891a07d0f1061878f7db1e8e761bc178c01a8"
+        }
+      ],
+      "sha256": "73aa6061f6166279aea4417419a47d1e33f60f152af73a870d8f1e2a7a748ec9"
+    },
+    {
+      "item": "sh1106",
+      "kind": "spark-driver",
+      "id": "sh1106",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 939,
+          "sha256": "34d84402865d00350d365f5e16c407c639afd73131a12707d724a4cbd1b936bb"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 479,
+          "sha256": "6939951708050d9856bf2dbd7d4da6749a72311c0f95a5875408a0d32a868ede"
+        },
+        {
+          "path": "driver.py",
+          "bytes": 1875,
+          "sha256": "fe1c5f88c0e7022c69a9b77745b6756850ddeb6a2d43685aba8da06686fccce4"
+        },
+        {
+          "path": "tests/frame.json",
+          "bytes": 143,
+          "sha256": "a768d3604f11892193e5c2110c43a1ead6edeba6ddf81b9d496c51e576cc2add"
+        }
+      ],
+      "sha256": "84cf88fb9f7d3df963d5907ebb97a3425533a94404f215c75430c4718c092bb2"
+    },
+    {
+      "item": "oled-seconds",
+      "kind": "spark-plug",
+      "id": "oled-seconds",
+      "version": "1.0.0",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 880,
+          "sha256": "5b424100531ce44f6a045a74f0010cd39d84afc6a7daf506d941557095308171"
+        },
+        {
+          "path": "benchvista.json",
+          "bytes": 786,
+          "sha256": "40d637473cf2dc2f129458b0734204019dd60c4bf9e8bb27804e6ca0e8b1fd9f"
+        },
+        {
+          "path": "main.py",
+          "bytes": 676,
+          "sha256": "4df34802f49094c278e77b98b9d243595905d5b7a013575444bae0f74404f692"
+        },
+        {
+          "path": "tests/three.json",
+          "bytes": 189,
+          "sha256": "d1df02c62dc455f46156a8d46d7d3e864b8cfde49b4e93c195bdcf93dd57aebb"
+        }
+      ],
+      "sha256": "212de88e4ab3c7e9003f47007a8a1eee47caf8d9f2871a21f2a155238134d7bf"
     }
   ],
   "installs": [
@@ -453,6 +540,119 @@
       }
     },
     {
+      "item": "oled-counter",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {
+        "DISPLAY.SCL": "J1.4",
+        "DISPLAY.SDA": "J1.5"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "oled-counter",
+        "name": "OLED counter",
+        "description": "Counts up on a 128 x 64 SSD1306 display over I2C and prints each count.",
+        "source": "# Written by BenchVista: oled-counter 1.0.0, sha256 73aa6061f6166279aea4417419a47d1e33f60f152af73a870d8f1e2a7a748ec9\nPINS = {}\nSETTINGS = {\"count\": 10, \"interval\": 500}\nDEVICES = {\"DISPLAY\": {\"driver\": \"ssd1306\", \"address\": 60, \"pins\": {\"SCL\": \"J1.4\", \"SDA\": \"J1.5\"}, \"settings\": {\"height\": 64, \"width\": 128}}}\n\n# OLED counter, a Spark Plug. CC0-1.0.\n# A 128 x 64 SSD1306 OLED on I2C, at 3.3 V: SCL and SDA to the pads BenchVista shows,\n# VCC to 3V3 and GND to GND. Most modules carry their own pull-up resistors.\ndef main(spark):\n    display = spark.device(\"DISPLAY\")\n    for number in range(SETTINGS[\"count\"]):\n        display.fill(0)\n        display.text(\"BenchVista\", 0, 0, 1)\n        display.text(\"Count \" + str(number + 1), 0, 16, 1)\n        display.show()\n        print(\"count\", number + 1)\n        yield spark.sleep_ms(round(SETTINGS[\"interval\"]))\n",
+        "pins": [
+          {
+            "pad": "J1.4",
+            "direction": "output"
+          },
+          {
+            "pad": "J1.5",
+            "direction": "output"
+          }
+        ],
+        "timeoutMs": 600000
+      }
+    },
+    {
+      "item": "oled-counter",
+      "board": "tenstar.rp2350-zero",
+      "pins": {
+        "DISPLAY.SCL": "R6",
+        "DISPLAY.SDA": "R5"
+      },
+      "settings": {
+        "count": 3,
+        "interval": 250
+      },
+      "task": {
+        "version": 1,
+        "id": "oled-counter",
+        "name": "OLED counter",
+        "description": "Counts up on a 128 x 64 SSD1306 display over I2C and prints each count.",
+        "source": "# Written by BenchVista: oled-counter 1.0.0, sha256 73aa6061f6166279aea4417419a47d1e33f60f152af73a870d8f1e2a7a748ec9\nPINS = {}\nSETTINGS = {\"count\": 3, \"interval\": 250}\nDEVICES = {\"DISPLAY\": {\"driver\": \"ssd1306\", \"address\": 60, \"pins\": {\"SCL\": \"R6\", \"SDA\": \"R5\"}, \"settings\": {\"height\": 64, \"width\": 128}}}\n\n# OLED counter, a Spark Plug. CC0-1.0.\n# A 128 x 64 SSD1306 OLED on I2C, at 3.3 V: SCL and SDA to the pads BenchVista shows,\n# VCC to 3V3 and GND to GND. Most modules carry their own pull-up resistors.\ndef main(spark):\n    display = spark.device(\"DISPLAY\")\n    for number in range(SETTINGS[\"count\"]):\n        display.fill(0)\n        display.text(\"BenchVista\", 0, 0, 1)\n        display.text(\"Count \" + str(number + 1), 0, 16, 1)\n        display.show()\n        print(\"count\", number + 1)\n        yield spark.sleep_ms(round(SETTINGS[\"interval\"]))\n",
+        "pins": [
+          {
+            "pad": "R6",
+            "direction": "output"
+          },
+          {
+            "pad": "R5",
+            "direction": "output"
+          }
+        ],
+        "timeoutMs": 600000
+      }
+    },
+    {
+      "item": "oled-seconds",
+      "board": "espressif.esp32-s3-devkitc-1",
+      "pins": {
+        "DISPLAY.SCL": "J1.4",
+        "DISPLAY.SDA": "J1.5"
+      },
+      "settings": {},
+      "task": {
+        "version": 1,
+        "id": "oled-seconds",
+        "name": "Seconds on an SH1106 OLED",
+        "description": "Counts seconds on a 128 x 64 SH1106 OLED display, through the Library's SH1106 driver.",
+        "source": "# Written by BenchVista: oled-seconds 1.0.0, sha256 212de88e4ab3c7e9003f47007a8a1eee47caf8d9f2871a21f2a155238134d7bf\nPINS = {}\nSETTINGS = {\"seconds\": 10}\nDEVICES = {\"DISPLAY\": {\"driver\": \"sh1106\", \"address\": 60, \"pins\": {\"SCL\": \"J1.4\", \"SDA\": \"J1.5\"}, \"settings\": {\"height\": 64, \"width\": 128}}}\n#: driver {\"name\":\"sh1106\",\"version\":\"1.0.0\",\"sha256\":\"fe1c5f88c0e7022c69a9b77745b6756850ddeb6a2d43685aba8da06686fccce4\",\"bus\":\"i2c\",\"kind\":\"display\",\"hz\":400000,\"addresses\":[60,61],\"settings\":{\"height\":[64],\"width\":[128]},\"sizes\":[[128,64]],\"colour\":false}\n#|\"\"\"SH1106 OLED, 128 x 64, on I2C: a Spark driver for BenchVista. CC0-1.0.\n#|\n#|The controller holds 132 columns and its panel shows the middle 128, so every page is sent from\n#|column 2. A one-bit frame in MONO_VLSB order, which is the controller's own page layout, sent\n#|page by page by show(). The setup values are the datasheet's own after power-on.\n#|\"\"\"\n#|import framebuf\n#|\n#|COMMANDS = 0x00\n#|DATA = 0x40\n#|\n#|\n#|class Driver:\n#|    def __init__(self, bus, settings):\n#|        self.bus = bus\n#|        self.width = settings['width']\n#|        self.height = settings['height']\n#|        self.pages = self.height//8\n#|        self.buffer = bytearray(self.pages*self.width)\n#|        self.frame = framebuf.FrameBuffer(self.buffer, self.width, self.height, framebuf.MONO_VLSB)\n#|        self.bus.writeto_mem(COMMANDS, bytes((\n#|            0xae,           # display off\n#|            0xd5, 0x80,     # clock\n#|            0xa8, 0x3f,     # 64 lines\n#|            0xd3, 0x00,     # no display offset\n#|            0x40,           # start line 0\n#|            0xad, 0x8b,     # internal DC-DC converter on\n#|            0xa1,           # column 131 is segment 0\n#|            0xc8,           # scan from COM[N-1]\n#|            0xda, 0x12,     # COM pin layout\n#|            0x81, 0x80,     # contrast\n#|            0xd9, 0x22,     # pre-charge\n#|            0xdb, 0x35,     # VCOM deselect level\n#|            0xa4,           # show the frame\n#|            0xa6,           # not inverted\n#|        )))\n#|        self.frame.fill(0)\n#|        self.show()\n#|        self.bus.writeto_mem(COMMANDS, bytes((0xaf,)))  # display on\n#|\n#|    def show(self):\n#|        view = memoryview(self.buffer)\n#|        for page in range(self.pages):\n#|            # The page, then column 2 as its low and high halves.\n#|            self.bus.writeto_mem(COMMANDS, bytes((0xb0 | page, 0x02, 0x10)))\n#|            self.bus.writeto_mem(DATA, view[page*self.width:(page+1)*self.width])\n#|\n#: end\n\n# Seconds on an SH1106 OLED, a Spark Plug. CC0-1.0.\n# A 128 x 64 SH1106 OLED on I2C, at 3.3 V: SCL and SDA to the pads BenchVista shows,\n# VCC to 3V3 and GND to GND. BenchVista installs the SH1106 driver with this file.\ndef main(spark):\n    display = spark.device(\"DISPLAY\")\n    for second in range(SETTINGS[\"seconds\"] + 1):\n        display.fill(0)\n        display.text(\"BenchVista\", 0, 0, 1)\n        display.text(str(second) + \" s\", 0, 24, 1)\n        display.rect(0, 48, display.width, 12, 1)\n        display.fill_rect(2, 50, (display.width - 4) * second // SETTINGS[\"seconds\"], 8, 1)\n        display.show()\n        print(\"second\", second)\n        yield spark.sleep_ms(1000)\n",
+        "pins": [
+          {
+            "pad": "J1.4",
+            "direction": "output"
+          },
+          {
+            "pad": "J1.5",
+            "direction": "output"
+          }
+        ],
+        "timeoutMs": 320000
+      }
+    },
+    {
+      "item": "oled-seconds",
+      "board": "tenstar.rp2350-zero",
+      "pins": {
+        "DISPLAY.SCL": "R6",
+        "DISPLAY.SDA": "R5"
+      },
+      "settings": {
+        "seconds": 2
+      },
+      "task": {
+        "version": 1,
+        "id": "oled-seconds",
+        "name": "Seconds on an SH1106 OLED",
+        "description": "Counts seconds on a 128 x 64 SH1106 OLED display, through the Library's SH1106 driver.",
+        "source": "# Written by BenchVista: oled-seconds 1.0.0, sha256 212de88e4ab3c7e9003f47007a8a1eee47caf8d9f2871a21f2a155238134d7bf\nPINS = {}\nSETTINGS = {\"seconds\": 2}\nDEVICES = {\"DISPLAY\": {\"driver\": \"sh1106\", \"address\": 60, \"pins\": {\"SCL\": \"R6\", \"SDA\": \"R5\"}, \"settings\": {\"height\": 64, \"width\": 128}}}\n#: driver {\"name\":\"sh1106\",\"version\":\"1.0.0\",\"sha256\":\"fe1c5f88c0e7022c69a9b77745b6756850ddeb6a2d43685aba8da06686fccce4\",\"bus\":\"i2c\",\"kind\":\"display\",\"hz\":400000,\"addresses\":[60,61],\"settings\":{\"height\":[64],\"width\":[128]},\"sizes\":[[128,64]],\"colour\":false}\n#|\"\"\"SH1106 OLED, 128 x 64, on I2C: a Spark driver for BenchVista. CC0-1.0.\n#|\n#|The controller holds 132 columns and its panel shows the middle 128, so every page is sent from\n#|column 2. A one-bit frame in MONO_VLSB order, which is the controller's own page layout, sent\n#|page by page by show(). The setup values are the datasheet's own after power-on.\n#|\"\"\"\n#|import framebuf\n#|\n#|COMMANDS = 0x00\n#|DATA = 0x40\n#|\n#|\n#|class Driver:\n#|    def __init__(self, bus, settings):\n#|        self.bus = bus\n#|        self.width = settings['width']\n#|        self.height = settings['height']\n#|        self.pages = self.height//8\n#|        self.buffer = bytearray(self.pages*self.width)\n#|        self.frame = framebuf.FrameBuffer(self.buffer, self.width, self.height, framebuf.MONO_VLSB)\n#|        self.bus.writeto_mem(COMMANDS, bytes((\n#|            0xae,           # display off\n#|            0xd5, 0x80,     # clock\n#|            0xa8, 0x3f,     # 64 lines\n#|            0xd3, 0x00,     # no display offset\n#|            0x40,           # start line 0\n#|            0xad, 0x8b,     # internal DC-DC converter on\n#|            0xa1,           # column 131 is segment 0\n#|            0xc8,           # scan from COM[N-1]\n#|            0xda, 0x12,     # COM pin layout\n#|            0x81, 0x80,     # contrast\n#|            0xd9, 0x22,     # pre-charge\n#|            0xdb, 0x35,     # VCOM deselect level\n#|            0xa4,           # show the frame\n#|            0xa6,           # not inverted\n#|        )))\n#|        self.frame.fill(0)\n#|        self.show()\n#|        self.bus.writeto_mem(COMMANDS, bytes((0xaf,)))  # display on\n#|\n#|    def show(self):\n#|        view = memoryview(self.buffer)\n#|        for page in range(self.pages):\n#|            # The page, then column 2 as its low and high halves.\n#|            self.bus.writeto_mem(COMMANDS, bytes((0xb0 | page, 0x02, 0x10)))\n#|            self.bus.writeto_mem(DATA, view[page*self.width:(page+1)*self.width])\n#|\n#: end\n\n# Seconds on an SH1106 OLED, a Spark Plug. CC0-1.0.\n# A 128 x 64 SH1106 OLED on I2C, at 3.3 V: SCL and SDA to the pads BenchVista shows,\n# VCC to 3V3 and GND to GND. BenchVista installs the SH1106 driver with this file.\ndef main(spark):\n    display = spark.device(\"DISPLAY\")\n    for second in range(SETTINGS[\"seconds\"] + 1):\n        display.fill(0)\n        display.text(\"BenchVista\", 0, 0, 1)\n        display.text(str(second) + \" s\", 0, 24, 1)\n        display.rect(0, 48, display.width, 12, 1)\n        display.fill_rect(2, 50, (display.width - 4) * second // SETTINGS[\"seconds\"], 8, 1)\n        display.show()\n        print(\"second\", second)\n        yield spark.sleep_ms(1000)\n",
+        "pins": [
+          {
+            "pad": "R6",
+            "direction": "output"
+          },
+          {
+            "pad": "R5",
+            "direction": "output"
+          }
+        ],
+        "timeoutMs": 320000
+      }
+    },
+    {
       "item": "pwm-adc-sweep",
       "board": "espressif.esp32-s3-devkitc-1",
       "pins": {
@@ -480,6 +680,314 @@
           }
         ],
         "timeoutMs": 15000
+      }
+    }
+  ],
+  "drivers": {
+    "ssd1306": {
+      "bus": "i2c",
+      "kind": "display",
+      "lines": [
+        {
+          "name": "SCL",
+          "direction": "output"
+        },
+        {
+          "name": "SDA",
+          "direction": "both"
+        }
+      ],
+      "addresses": [
+        60,
+        61
+      ],
+      "settings": {
+        "width": [
+          128
+        ],
+        "height": [
+          64,
+          32
+        ]
+      },
+      "sizes": [
+        [
+          128,
+          64
+        ],
+        [
+          128,
+          32
+        ]
+      ]
+    },
+    "st7789": {
+      "bus": "spi",
+      "kind": "display",
+      "lines": [
+        {
+          "name": "SCK",
+          "direction": "output"
+        },
+        {
+          "name": "MOSI",
+          "direction": "output"
+        },
+        {
+          "name": "CS",
+          "direction": "output"
+        },
+        {
+          "name": "DC",
+          "direction": "output"
+        },
+        {
+          "name": "RESET",
+          "direction": "output",
+          "optional": true
+        }
+      ],
+      "settings": {
+        "width": [
+          240,
+          135
+        ],
+        "height": [
+          320,
+          240,
+          280
+        ],
+        "rotation": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      "sizes": [
+        [
+          240,
+          320
+        ],
+        [
+          240,
+          240
+        ],
+        [
+          240,
+          280
+        ],
+        [
+          135,
+          240
+        ]
+      ]
+    },
+    "bme280": {
+      "bus": "i2c",
+      "kind": "sensor",
+      "lines": [
+        {
+          "name": "SCL",
+          "direction": "output"
+        },
+        {
+          "name": "SDA",
+          "direction": "both"
+        }
+      ],
+      "addresses": [
+        118,
+        119
+      ],
+      "settings": {}
+    }
+  },
+  "driverSources": [
+    {
+      "name": "the SH1106 example",
+      "source": "\"\"\"SH1106 OLED, 128 x 64, on I2C: a Spark driver for BenchVista. CC0-1.0.\n\nThe controller holds 132 columns and its panel shows the middle 128, so every page is sent from\ncolumn 2. A one-bit frame in MONO_VLSB order, which is the controller's own page layout, sent\npage by page by show(). The setup values are the datasheet's own after power-on.\n\"\"\"\nimport framebuf\n\nCOMMANDS = 0x00\nDATA = 0x40\n\n\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n        self.width = settings['width']\n        self.height = settings['height']\n        self.pages = self.height//8\n        self.buffer = bytearray(self.pages*self.width)\n        self.frame = framebuf.FrameBuffer(self.buffer, self.width, self.height, framebuf.MONO_VLSB)\n        self.bus.writeto_mem(COMMANDS, bytes((\n            0xae,           # display off\n            0xd5, 0x80,     # clock\n            0xa8, 0x3f,     # 64 lines\n            0xd3, 0x00,     # no display offset\n            0x40,           # start line 0\n            0xad, 0x8b,     # internal DC-DC converter on\n            0xa1,           # column 131 is segment 0\n            0xc8,           # scan from COM[N-1]\n            0xda, 0x12,     # COM pin layout\n            0x81, 0x80,     # contrast\n            0xd9, 0x22,     # pre-charge\n            0xdb, 0x35,     # VCOM deselect level\n            0xa4,           # show the frame\n            0xa6,           # not inverted\n        )))\n        self.frame.fill(0)\n        self.show()\n        self.bus.writeto_mem(COMMANDS, bytes((0xaf,)))  # display on\n\n    def show(self):\n        view = memoryview(self.buffer)\n        for page in range(self.pages):\n            # The page, then column 2 as its low and high halves.\n            self.bus.writeto_mem(COMMANDS, bytes((0xb0 | page, 0x02, 0x10)))\n            self.bus.writeto_mem(DATA, view[page*self.width:(page+1)*self.width])\n",
+      "problem": null
+    },
+    {
+      "name": "the three allowed imports",
+      "source": "import framebuf\nimport struct\nfrom micropython import const\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": null
+    },
+    {
+      "name": "an import inside a method",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        import struct\n        self.bus = bus\n",
+      "problem": null
+    },
+    {
+      "name": "a base class",
+      "source": "class Base:\n    pass\n\n\nclass Driver(Base):\n    pass\n",
+      "problem": null
+    },
+    {
+      "name": "refused words in a comment and a string",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        # import os, open, print\n        self.note = \"import os\"\n",
+      "problem": null
+    },
+    {
+      "name": "text outside ASCII in a comment and a string",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        # 23 °C\n        self.unit = \"°C\"\n",
+      "problem": null
+    },
+    {
+      "name": "a bytes literal",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        bus.writeto(b'\\x00\\xaf')\n",
+      "problem": null
+    },
+    {
+      "name": "another module",
+      "source": "import os\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "import os"
+      }
+    },
+    {
+      "name": "two modules on one line",
+      "source": "import framebuf, struct\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "import framebuf, struct"
+      }
+    },
+    {
+      "name": "an import under another name",
+      "source": "import framebuf as fb\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "import framebuf as fb"
+      }
+    },
+    {
+      "name": "more of micropython",
+      "source": "from micropython import const, mem_info\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "from micropython import const, mem_info"
+      }
+    },
+    {
+      "name": "all of micropython",
+      "source": "import micropython\nclass Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "import micropython"
+      }
+    },
+    {
+      "name": "yield from",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n\n    def each(self):\n        yield from self.bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "yield from self.bus"
+      }
+    },
+    {
+      "name": "a file",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.file = open('/boot.py')\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "open"
+      }
+    },
+    {
+      "name": "print",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        print('opened')\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "print"
+      }
+    },
+    {
+      "name": "a private name",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self._bus = bus\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "_bus"
+      }
+    },
+    {
+      "name": "a dunder attribute",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.kind = bus.__class__\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "__class__"
+      }
+    },
+    {
+      "name": "getattr",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.read = getattr(bus, 'readfrom')\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "getattr"
+      }
+    },
+    {
+      "name": "an f-string",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.name = f\"{bus}\"\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "f"
+      }
+    },
+    {
+      "name": "an identifier outside ASCII",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.größe = 1\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT"
+      }
+    },
+    {
+      "name": "a name of 65 characters",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_CONTRACT",
+        "token": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "name": "a name of 64 characters",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa = 1\n",
+      "problem": null
+    },
+    {
+      "name": "Windows line ends",
+      "source": "class Driver:\r\n    def __init__(self, bus, settings):\r\n        self.bus = bus\r\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_SOURCE"
+      }
+    },
+    {
+      "name": "no Driver class",
+      "source": "class Display:\n    pass\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_ENTRY"
+      }
+    },
+    {
+      "name": "an indented Driver class",
+      "source": "if True:\n    class Driver:\n        pass\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_ENTRY"
+      }
+    },
+    {
+      "name": "too long",
+      "source": "class Driver:\n    def __init__(self, bus, settings):\n        self.bus = bus\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n# filler\n",
+      "problem": {
+        "code": "LIBRARY_DRIVER_SOURCE"
+      }
+    },
+    {
+      "name": "empty",
+      "source": "",
+      "problem": {
+        "code": "LIBRARY_DRIVER_SOURCE"
       }
     }
   ]

@@ -1,0 +1,17 @@
+{
+  "kind": "spark-driver",
+  "id": "sh1106",
+  "version": "1.0.0",
+  "name": "SH1106 OLED display",
+  "summary": "Drives a 128 x 64 SH1106 OLED display on I2C: the 1.3 inch modules an SSD1306 driver shows shifted.",
+  "license": "CC0-1.0",
+  "entry": "driver.py",
+  "tags": ["example", "display"],
+  "device": "display",
+  "bus": "i2c",
+  "addresses": [60, 61],
+  "settings": { "width": [128], "height": [64] },
+  "sizes": [[128, 64]],
+  "colour": "mono",
+  "sparkTaskApi": 2
+}

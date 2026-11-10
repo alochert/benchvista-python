@@ -1,0 +1,8 @@
+{
+  "settings": { "seconds": 3 },
+  "expect": {
+    "state": "complete",
+    "output": "second 0\nsecond 1\nsecond 2\nsecond 3\n",
+    "display": { "DISPLAY": ["BenchVista", "3 s"] }
+  }
+}

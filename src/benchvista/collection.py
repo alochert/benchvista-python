@@ -32,7 +32,7 @@ from .library import KINDS, PACKAGE_FILE, Version, checksums_text, read_version
 
 COLLECTION_FILE = "collection.json"
 INDEX_FORMAT = "benchvista-collection-v1"
-GROUPS = {"spark-plugs": "spark-plug", "analysis-steps": "analysis-step"}
+GROUPS = {"spark-plugs": "spark-plug", "analysis-steps": "analysis-step", "spark-drivers": "spark-driver"}
 REPOSITORY = re.compile(r"^[A-Za-z0-9-]{1,39}/[A-Za-z0-9._-]{1,100}$")
 CONTROL = re.compile("[\\u0000-\\u001f\\u007f-\\u009f\\u2028\\u2029]")
 SHA256 = re.compile(r"^[a-f0-9]{64}$")

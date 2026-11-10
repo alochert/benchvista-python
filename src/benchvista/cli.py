@@ -1,12 +1,18 @@
 """The `benchvista` command (`docs/library.md` §6, `docs/analysis-python-steps.md` §15.3).
 
-Library items, both kinds (a folder with `benchvista.json`):
+Library items, every kind (a folder with `benchvista.json`):
 
     benchvista new spark-plug <dir>      start a Spark Plug: benchvista.json, main.py, README, a test
     benchvista new analysis-step <dir>   start an analysis step: benchvista.json, step.py, README
+    benchvista new spark-driver <dir>    start a Spark driver: benchvista.json, driver.py, README, a test
     benchvista check <dir>               check the package and source; print the version hash
-    benchvista test <dir>                run the item's tests (a simulated Spark, or step fixtures)
+    benchvista test <dir>                run the item's tests (a simulated Spark, a recording bus,
+                                         or step fixtures)
     benchvista build <dir> [--out DIR]   write build/release.json and build/checksums.txt
+
+A Spark Plug that names a Library driver needs that driver's folder: `benchvista` looks in
+`../../spark-drivers/<id>/` (a collection's layout), beside the Spark Plug's folder, and in every
+`--drivers <folder>`.
     benchvista collection build <repo> --out <site>
                                          check, test and publish a collection repository's site
 
@@ -28,7 +34,15 @@ A step case is `{"params": {...}, "inputs": {"port": "<base>"}, "seed": 0, "expe
 with each input as `<base>.manifest.json` and `<base>.<sequence>.bin` beside it, the files
 `node scripts/analysis/run.ts --out` writes. A Spark Plug case is `tests/<case>.json`:
 `{"settings": {...}, "wiring": {"IN": "OUT"}, "readings": {"IN": [0, 1]}, "expect": {...}}`, where
-`expect` may give `state`, `error`, `output`, `lines`, `contains` and `result`.
+`expect` may give `state`, `error`, `output`, `lines`, `contains`, `result` and `display`
+(per display role, the texts its last shown frame drew); `devices` gives a sensor's readings.
+
+A Spark driver case is `tests/<case>.json`: `{"settings": {...}, "lines": ["CS", "DC"],
+"registers": {"208": "60"}, "calls": [["fill", 0], ["show"]], "expect": {...}}`. `registers` is
+what an I²C chip answers from a register on, in hex; `lines` the SPI lines that are connected
+(default: all the package names). `expect` may give `error` (the driver's own code), `writes`
+(bus writes), `bytes` (bytes sent, a register write counting its register), `starts` (hex the
+sent bytes begin with) and `reading` (a sensor's values).
 """
 
 from __future__ import annotations
@@ -45,9 +59,12 @@ from .dataset import Dataset, read
 from .execute import RunError, run_step
 from .library import PACKAGE_FILE, LibraryError, Version, checksums_text, read_version
 from .manifest import ManifestError, build_manifest, load_step_class, manifest_hash, source_files
-from .spark_plug import SOURCE_BYTES, SparkPlugError, largest_header, simulate, source_profile
+from .spark_driver import DriverCaseError, find_drivers, load, run_case, source_problem
+from .spark_plug import SOURCE_BYTES, Drivers, SparkPlugError, largest_header, simulate, source_profile
 
 RELEASE_FORMAT = "benchvista-library-release-v1"
+#: Folders given with `--drivers`, each holding `<id>/benchvista.json` of a Spark driver.
+DRIVER_FOLDERS: list[Path] = []
 
 
 class Refused(Exception):
@@ -168,6 +185,19 @@ def _plug_source(directory: Path, version: Version) -> str:
     return source
 
 
+def _plug_drivers(directory: Path, version: Version) -> Drivers:
+    """The Library drivers a Spark Plug names, from the folders `benchvista` looks in."""
+    folders = [directory.parent.parent / "spark-drivers", directory.parent, *DRIVER_FOLDERS]
+    held, missing = find_drivers(version.package, folders)
+    for named in missing:
+        raise Refused(
+            "LIBRARY_PLUG_DRIVER",
+            f"{named['id']} {named['version']} sha256 {named['sha256']}: no folder holds this exact driver "
+            "(looked in ../../spark-drivers, beside this folder and in --drivers)",
+        )
+    return held
+
+
 def _check_plug(directory: Path, version: Version) -> str:
     package = version.package
     entry = package["entry"]
@@ -194,9 +224,12 @@ def _check_plug(directory: Path, version: Version) -> str:
     for match in SETTING_USE.finditer(source):
         if match.group(2) not in settings:
             raise Refused("LIBRARY_PLUG_SETTING_UNKNOWN", f"{entry}: SETTINGS[{match.group(2)!r}] is not declared")
-    size = len(source.encode("utf-8")) + largest_header(package)
+    try:
+        size = len(source.encode("utf-8")) + largest_header(package, _plug_drivers(directory, version))
+    except SparkPlugError as error:
+        raise Refused(error.code, f"devices {error.detail}".strip()) from error
     if size > SOURCE_BYTES:
-        raise Refused("LIBRARY_PLUG_SOURCE_SIZE", f"{entry}: {size} bytes with the header, the board takes {SOURCE_BYTES}")
+        raise Refused("LIBRARY_PLUG_SOURCE_SIZE", f"{entry}: {size} bytes with the header and its drivers, the board takes {SOURCE_BYTES}")
     return source
 
 
@@ -208,6 +241,7 @@ def _plug_cases(directory: Path) -> list[tuple[str, dict]]:
 
 
 def _plug_test(directory: Path, version: Version, source: str) -> int:
+    drivers = _plug_drivers(directory, version)
     failed = 0
     for name, case in _plug_cases(directory):
         expect = case.get("expect", {})
@@ -217,6 +251,8 @@ def _plug_test(directory: Path, version: Version, source: str) -> int:
             settings=case.get("settings"),
             wiring=case.get("wiring"),
             readings=case.get("readings"),
+            devices=case.get("devices"),
+            drivers=drivers,
         )
         problems = []
         state = expect.get("state", "fault" if "error" in expect else "complete")
@@ -231,6 +267,11 @@ def _plug_test(directory: Path, version: Version, source: str) -> int:
         for text in expect.get("contains", []):
             if text not in run.output:
                 problems.append(f"output lacks {text!r}")
+        for role, texts in expect.get("display", {}).items():
+            shown = run.frames.get(role, [])
+            last = [text for _, _, text in shown[-1]] if shown else []
+            if last != texts:
+                problems.append(f"{role} last showed {last!r}, expected {texts!r}")
         if "result" in expect and run.result != expect["result"]:
             problems.append(f"result {run.result!r}, expected {expect['result']!r}")
         if run.truncated_bytes:
@@ -240,6 +281,53 @@ def _plug_test(directory: Path, version: Version, source: str) -> int:
             print(f"FAIL {name}: " + "; ".join(problems))
         else:
             print(f"pass {name}: {run.state} after {run.elapsed_ms} ms simulated, {run.steps} steps, {len(run.output.splitlines())} lines")
+    return 1 if failed else 0
+
+
+# ---------------------------------------------------------------------------------------------
+# Spark drivers
+
+
+def _check_driver(directory: Path, version: Version) -> str:
+    package = version.package
+    entry = package["entry"]
+    for file in version.files:
+        path = file["path"]
+        if path.endswith(".py") and path != entry and not path.startswith("tests/"):
+            raise Refused("LIBRARY_DRIVER_EXTRA_SOURCE", f"{path}: a board receives only {entry}")
+    try:
+        source = (directory / entry).read_bytes().decode("utf-8")
+    except UnicodeDecodeError as error:
+        raise Refused("LIBRARY_DRIVER_SOURCE", entry) from error
+    problem = source_problem(source)
+    if problem is not None:
+        raise Refused(problem[0], f"{entry} {problem[1]}".strip())
+    try:
+        ast.parse(source, entry)
+        load(source)
+    except SyntaxError as error:
+        raise Refused("SPARK_SCRIPT_SYNTAX", f"{entry}:{error.lineno} {error.msg}") from error
+    except DriverCaseError as error:
+        raise Refused("LIBRARY_DRIVER_ENTRY", f"{entry}: {error}") from error
+    except Exception as error:  # noqa: BLE001 - the module's own top-level code failed
+        raise Refused("LIBRARY_DRIVER_ENTRY", f"{entry}: {type(error).__name__}: {error}") from error
+    return source
+
+
+def _driver_test(directory: Path, version: Version, source: str) -> int:
+    failed = 0
+    for name, case in _plug_cases(directory):
+        try:
+            problems = run_case(version.package, source, case)
+        except DriverCaseError as error:
+            problems = [str(error)]
+        except Exception as error:  # noqa: BLE001 - any exception in the driver fails the case
+            problems = [f"{type(error).__name__}: {error}"]
+        if problems:
+            failed += 1
+            print(f"FAIL {name}: " + "; ".join(problems))
+        else:
+            print(f"pass {name}")
     return 1 if failed else 0
 
 
@@ -266,6 +354,8 @@ def check_item(directory: Path) -> int:
         version = _read(directory)
         if version.package["kind"] == "spark-plug":
             _check_plug(directory, version)
+        elif version.package["kind"] == "spark-driver":
+            _check_driver(directory, version)
         else:
             _check_step(directory, version)
     except Refused as error:
@@ -281,6 +371,8 @@ def test_item(directory: Path) -> int:
         version = _read(directory)
         if version.package["kind"] == "spark-plug":
             source = _check_plug(directory, version)
+        elif version.package["kind"] == "spark-driver":
+            source = _check_driver(directory, version)
         else:
             _check_step(directory, version)
     except Refused as error:
@@ -289,6 +381,9 @@ def test_item(directory: Path) -> int:
     if version.package["kind"] == "spark-plug":
         print("Simulated Spark in CPython: the board's rules, no real pins or timing.")
         return _plug_test(directory, version, source)
+    if version.package["kind"] == "spark-driver":
+        print("The driver in CPython on a recording bus: what it sent, not a real device.")
+        return _driver_test(directory, version, source)
     return test_command(directory, _step_entry(version.package))
 
 
@@ -306,6 +401,8 @@ def release_record(directory: Path) -> dict:
     }
     if version.package["kind"] == "spark-plug":
         _check_plug(directory, version)
+    elif version.package["kind"] == "spark-driver":
+        _check_driver(directory, version)
     else:
         manifest, digest = _check_step(directory, version)
         record["step"] = {"manifest": manifest, "sha256": digest}
@@ -418,6 +515,52 @@ def _step_files(item_id: str) -> dict[str, str]:
     return {PACKAGE_FILE: json.dumps(package, indent=2) + "\n", "step.py": step, "README.md": readme}
 
 
+def _driver_files(item_id: str) -> dict[str, str]:
+    name = _title(item_id)[:48]
+    package = {
+        "kind": "spark-driver",
+        "id": item_id,
+        "version": "0.1.0",
+        "name": name,
+        "summary": "Reads the temperature of an LM75-style sensor on I2C.",
+        "license": "CC0-1.0",
+        "entry": "driver.py",
+        "device": "sensor",
+        "bus": "i2c",
+        "addresses": [72, 73, 74, 75],
+        "readings": ["temperature_c"],
+        "sparkTaskApi": 2,
+    }
+    driver = (
+        f'"""{name}: a Spark driver for BenchVista.\n\n'
+        "BenchVista gives the driver a handle to its own device and the device's settings. A driver\n"
+        "imports only framebuf, struct and const from micropython, and uses no name that starts with\n"
+        'an underscore except __init__.\n"""\n'
+        "import struct\n\n"
+        "TEMPERATURE = 0x00\n\n\n"
+        "class Driver:\n"
+        "    def __init__(self, bus, settings):\n"
+        "        self.bus = bus\n\n"
+        "    def read(self):\n"
+        "        raw = struct.unpack('>h', self.bus.readfrom_mem(TEMPERATURE, 2))[0]\n"
+        "        return {'temperature_c': raw / 256}\n"
+    )
+    readme = (
+        f"# {name}\n\n{package['summary']}\n\n"
+        "## Device\n\nAn LM75-style temperature sensor at I2C address 0x48 to 0x4B. Use 3.3 V logic only.\n\n"
+        "## Use\n\nA Spark Plug names this driver by its exact version in `devices`:\n"
+        '`"driver": {"id": "' + item_id + '", "version": "0.1.0", "sha256": "<the hash `benchvista check` prints>"}`.\n'
+        "`spark.device(role).read()` then returns `temperature_c`.\n"
+    )
+    test = {"registers": {"0": "1900"}, "calls": [["read"]], "expect": {"reading": {"temperature_c": 25.0}}}
+    return {
+        PACKAGE_FILE: json.dumps(package, indent=2) + "\n",
+        "driver.py": driver,
+        "README.md": readme,
+        "tests/room.json": json.dumps(test, indent=2) + "\n",
+    }
+
+
 def new_item(kind: str, directory: Path) -> int:
     item_id = directory.name
     if not re.match(r"^[a-z][a-z0-9-]{0,63}$", item_id):
@@ -426,7 +569,7 @@ def new_item(kind: str, directory: Path) -> int:
     if directory.exists() and any(directory.iterdir()):
         print(f"refused: LIBRARY_NEW_NOT_EMPTY at {directory}", file=sys.stderr)
         return 2
-    files = _plug_files(item_id) if kind == "spark-plug" else _step_files(item_id)
+    files = {"spark-plug": _plug_files, "spark-driver": _driver_files, "analysis-step": _step_files}[kind](item_id)
     for path, text in files.items():
         target = directory / path
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -458,14 +601,15 @@ def build_collection(args: argparse.Namespace) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="benchvista", description="Write, check and test Spark Plugs and analysis steps.")
+    parser = argparse.ArgumentParser(prog="benchvista", description="Write, check and test Spark Plugs, Spark drivers and analysis steps.")
     commands = parser.add_subparsers(dest="group", required=True)
-    new = commands.add_parser("new", help="start a Spark Plug or an analysis step in a new folder")
-    new.add_argument("kind", choices=("spark-plug", "analysis-step"))
+    new = commands.add_parser("new", help="start a Spark Plug, a Spark driver or an analysis step in a new folder")
+    new.add_argument("kind", choices=("spark-plug", "analysis-step", "spark-driver"))
     new.add_argument("directory", type=Path)
     for name, text in (("check", "check an item and print its version hash"), ("test", "run an item's tests"), ("build", "write an item's release record and checksums")):
         command = commands.add_parser(name, help=text)
         command.add_argument("directory", type=Path)
+        command.add_argument("--drivers", type=Path, action="append", default=[], help="a folder of Spark drivers a Spark Plug may name, <id>/benchvista.json")
         if name == "build":
             command.add_argument("--out", type=Path, default=None, help="folder for release.json and checksums.txt (default <dir>/build)")
     collection = commands.add_parser("collection", help="build a collection repository's published site")
@@ -478,6 +622,7 @@ def main(argv: list[str] | None = None) -> int:
     site.add_argument("--commit", default=None, help="the commit being built")
     site.add_argument("--attested", action="store_true", help="the workflow attests collection.json and checksums.txt")
     site.add_argument("--no-tests", action="store_true", help="check and hash only")
+    site.add_argument("--drivers", type=Path, action="append", default=[], help="a folder of Spark drivers from another collection, <id>/benchvista.json")
     step = commands.add_parser("step", help="build and test Python analysis steps without benchvista.json")
     actions = step.add_subparsers(dest="action", required=True)
     for action in ("build", "test"):
@@ -486,6 +631,7 @@ def main(argv: list[str] | None = None) -> int:
         command.add_argument("--entry", default=None, help="module:Class, when the directory's step.py is not it")
     args = parser.parse_args(argv)
     directory = args.directory.resolve()
+    DRIVER_FOLDERS[:] = [folder.resolve() for folder in getattr(args, "drivers", [])]
     if args.group == "new":
         return new_item(args.kind, directory)
     if args.group == "check":

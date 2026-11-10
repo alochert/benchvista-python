@@ -1,0 +1,33 @@
+{
+  "kind": "spark-plug",
+  "id": "oled-seconds",
+  "version": "1.0.0",
+  "name": "Seconds on an SH1106 OLED",
+  "summary": "Counts seconds on a 128 x 64 SH1106 OLED display, through the Library's SH1106 driver.",
+  "license": "CC0-1.0",
+  "entry": "main.py",
+  "tags": ["example", "display"],
+  "pins": [],
+  "devices": [
+    {
+      "role": "DISPLAY",
+      "driver": {
+        "id": "sh1106",
+        "version": "1.0.0",
+        "sha256": "84cf88fb9f7d3df963d5907ebb97a3425533a94404f215c75430c4718c092bb2"
+      },
+      "label": "128 x 64 SH1106 OLED display"
+    }
+  ],
+  "settings": {
+    "seconds": {
+      "kind": "integer",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 300,
+      "label": "Seconds to count"
+    }
+  },
+  "timeoutMs": 320000,
+  "sparkTaskApi": 2
+}

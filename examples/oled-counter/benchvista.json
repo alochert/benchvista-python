@@ -1,0 +1,39 @@
+{
+  "kind": "spark-plug",
+  "id": "oled-counter",
+  "version": "1.0.0",
+  "name": "OLED counter",
+  "summary": "Counts up on a 128 x 64 SSD1306 display over I2C and prints each count.",
+  "license": "CC0-1.0",
+  "entry": "main.py",
+  "tags": ["example", "display"],
+  "pins": [],
+  "devices": [
+    {
+      "role": "DISPLAY",
+      "driver": "ssd1306",
+      "label": "128 x 64 OLED display",
+      "settings": { "height": 64 }
+    }
+  ],
+  "settings": {
+    "count": {
+      "kind": "integer",
+      "default": 10,
+      "minimum": 1,
+      "maximum": 100,
+      "label": "Counts"
+    },
+    "interval": {
+      "kind": "quantity",
+      "quantity": "time",
+      "unit": "ms",
+      "default": 500,
+      "minimum": 100,
+      "maximum": 5000,
+      "label": "Time between counts"
+    }
+  },
+  "timeoutMs": 600000,
+  "sparkTaskApi": 2
+}

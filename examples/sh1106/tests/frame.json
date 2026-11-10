@@ -1,0 +1,4 @@
+{
+  "calls": [["fill", 0], ["text", "BenchVista", 0, 0, 1], ["show"]],
+  "expect": { "writes": 34, "bytes": 2153, "starts": "00aed580a83f" }
+}
